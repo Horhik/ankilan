@@ -16,3 +16,5 @@ export const SET_WORD_SOUND = 'SET_WORD_SOUND';
 export const SET_WORD_TRANSLATE = 'SET_WORD_TRANSLATE';
 //Anki ui actions
 export const SHOW_FIELDS = 'SHOW_FIELDS';
+// Anki check actions
+export const SET_EXISTING_OF_ANKI_LAN_MODEL = 'SET_EXISTING_OF_ANKI_LAN_MODEL';

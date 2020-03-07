@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, Button} from 'native-base';
+import {Text, Button, Grid} from 'native-base';
 import {connect} from 'react-redux';
 import {requestAnkiPermission} from '../actions/anki-get-actions';
 const Permissions = props => {
@@ -7,9 +7,16 @@ const Permissions = props => {
     props.requestAnkiPermission();
   }, []);
   return (
-    <Button onPress={() => requestAnkiPermission()}>
-      <Text>Request access</Text>
-    </Button>
+    <Grid
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+      <Button onPress={() => requestAnkiPermission()}>
+        <Text>Request access</Text>
+      </Button>
+    </Grid>
   );
 };
 export default connect(

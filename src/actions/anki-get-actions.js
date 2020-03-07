@@ -6,8 +6,9 @@ import {
   GET_FIELD_LIST,
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
+  SET_EXISTING_OF_ANKI_LAN_MODEL,
 } from '../constants/anki-constants';
-import {getPermissionName} from 'react-native-ankidroid/dist/utilities';
+import {createAnkiLanModel} from './createAnkiLanModel';
 
 /*Permissions*/
 
@@ -74,4 +75,25 @@ export const getFieldList = async (
   return err ? {type: ERROR, err} : {type: GET_FIELD_LIST, payload: res};
 };
 
-export const dd = () => {};
+/*Checking*/
+const setExistingOfAnkiLanModel = existing => {
+  return {
+    type: SET_EXISTING_OF_ANKI_LAN_MODEL,
+    payload: existing,
+  };
+};
+export const checkAnkiLanModelForExisting = id => async dispatch => {
+  try {
+    const [err, res] = await AnkiDroid.getFieldList('', id);
+    if (err) {
+      throw err;
+    }
+    console.log(res);
+    await dispatch(setExistingOfAnkiLanModel(true));
+    return res;
+  } catch (err) {
+    await dispatch(setExistingOfAnkiLanModel(false));
+    await createAnkiLanModel(id);
+    console.log('errrororo', err);
+  }
+};

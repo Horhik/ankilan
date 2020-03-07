@@ -5,12 +5,13 @@ import Permissions from './permissions';
 import {connect, Provider} from 'react-redux';
 import DeckPicker from './view/deck-picker';
 import AddWordForm from './add-word-form';
+import AnkiTemplate from './view/add-main-template';
+import {Grid, Row} from 'native-base';
 
 const StartScreen = props => {
     return (
         <ScrollView>
-            {!props.ankiAvailable? <Permissions /> : null}
-                <AddWordForm/>
+            {props.ankiAvailable? <AddWordForm/>: <Permissions /> }
         </ScrollView>
     )
 };
