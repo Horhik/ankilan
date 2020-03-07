@@ -7,27 +7,56 @@ import {
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
 } from '../constants/anki-constants';
+import {getPermissionName} from 'react-native-ankidroid/dist/utilities';
 
-export const requestAnkiPermissions = async (
-  ankiProvider = AnkiDroid.requestPermission,
-) => {
-  const [err, res] = await ankiProvider();
-  const permission = res === 'granted';
-  return err ? {type: ERROR, err} : {type: REQUEST_PERMISSIONS, permission};
+/*Permissions*/
+
+const setRequestAnkiPermissions = (err, res) => {
+  return err
+    ? {type: ERROR, err}
+    : {type: REQUEST_PERMISSIONS, payload: res === 'granted'};
+};
+export const requestAnkiPermission = () => async dispatch => {
+  try {
+    const [err, res] = await AnkiDroid.requestPermission();
+    if (err) throw err;
+    console.log(res);
+    await dispatch(setRequestAnkiPermissions(err, res));
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const checkAnkiAccess = async (
   ankiApiProvider = AnkiDroid.isApiAvailable,
 ) => {
   const [err, res] = await ankiApiProvider();
+  console.log(res, 'result');
   return err ? {type: ERROR, err} : {type: CHECK_ANKI_ACCESS, payload: res};
 };
 
-export const getDeckList = async (
-  getDeckListFunction = AnkiDroid.getDeckList,
-) => {
-  const [err, res] = await getDeckListFunction();
-  return err ? {type: ERROR, err} : {type: GET_DECK_LIST, payload: res};
+/*Anki Data*/
+
+const setDeckList = deckList => {
+  return {
+    type: GET_DECK_LIST,
+    payload: deckList,
+  };
+};
+
+export const getDeckList = () => async dispatch => {
+  try {
+    const [err, deckList] = await AnkiDroid.getDeckList();
+    if (err) {
+      console.log('you have an error');
+      throw err;
+    }
+    await dispatch(setDeckList(deckList));
+    return deckList;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getModelList = async (
@@ -44,3 +73,5 @@ export const getFieldList = async (
   const [err, res] = await getFieldListFunction(id);
   return err ? {type: ERROR, err} : {type: GET_FIELD_LIST, payload: res};
 };
+
+export const dd = () => {};
