@@ -91,17 +91,22 @@ const setExistingOfAnkiLanModel = existing => {
     payload: existing,
   };
 };
-export const checkAnkiLanModelForExisting = name => async dispatch => {
+export const checkAnkiLanModelForExisting = (
+  name,
+  modelList,
+) => async dispatch => {
   try {
-    const [err, res] = await AnkiDroid.getFieldList(name);
-    if (err) {
-      throw err;
+    for (let model of modelList) {
+      if (model.name === name) {
+        console.log('founded');
+        await dispatch(setExistingOfAnkiLanModel(true));
+        return true;
+      }
     }
-    console.log(res);
-    await dispatch(setExistingOfAnkiLanModel(true));
-    return res;
+    const err = 'Model not found. Displaying message...';
+    throw err;
   } catch (err) {
+    console.log(err);
     await dispatch(setExistingOfAnkiLanModel(false));
-    await createAnkiLanModel(id);
   }
 };

@@ -24,7 +24,7 @@ const DeckPicker = props => {
 
 export default connect(state => ({
     decks: state.anki.deckList,
-    selectedDeck: state.anki.selectedDeck
+    selectedDeck: state.anki.selectedDeck,
 }),{
     getDeckList,
     selectDeck,

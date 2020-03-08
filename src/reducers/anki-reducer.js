@@ -2,6 +2,8 @@ import {
   GET_DECK_LIST,
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
+  SET_ANKI_NOTE_CREATOR,
+  SET_CREATOR_TEMPLATE,
   SET_DECK,
   SET_EXISTING_OF_ANKI_LAN_MODEL,
 } from '../constants/anki-constants';
@@ -18,7 +20,9 @@ const initialState = {
   mainFieldIsAvailable: false,
   fieldList: [],
   ankiLanModelIsAlreadyExists: false,
-  ankiLanModelName: 'AnkiLan_test',
+  ankiLanModelName: 'AnkiLan2',
+  noteCreator: {},
+  noteTemplate: [],
 };
 
 const ankiReducer = (state = initialState, action) => {
@@ -37,6 +41,10 @@ const ankiReducer = (state = initialState, action) => {
       };
     case SET_EXISTING_OF_ANKI_LAN_MODEL:
       return {...state, ankiLanModelIsAlreadyExists: action.payload};
+    case SET_CREATOR_TEMPLATE:
+      return {...state, noteTemplate: action.payload};
+    case SET_ANKI_NOTE_CREATOR:
+      return {...state, noteCreator: action.payload};
     default:
       return state;
   }
