@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Picker, Text} from 'native-base'
-import { getDeckList} from '../../actions/anki-get-actions';
+import { getDeckList, getModelList} from '../../actions/anki-get-actions';
 import {selectDeck} from '../../actions/anki-set-actions';
 
 const DeckPicker = props => {
     const [deckList, setDeckList] = useState([{name: "no decks", id: 0}]);
     useEffect(() => {
         props.getDeckList()
-        setDeckList(props.decks)
+        props.getModelList()
     }, [])
+    useEffect(() => {
+        setDeckList(props.decks)
+    }, [props.decks])
     return (
-        <Picker   onValueChange={id => props.selectDeck(id)} selectedValue={props.selectedDeck} >
+        <Picker onValueChange={id => props.selectDeck({id, deck: deckList[id]})} selectedValue={props.selectedDeck.id}>
             {deckList.map((deck, index) => (
                 <Picker.Item label={deck.name} key={deck.id} value={index}/>
             ))}
@@ -24,5 +27,6 @@ export default connect(state => ({
     selectedDeck: state.anki.selectedDeck
 }),{
     getDeckList,
-    selectDeck
+    selectDeck,
+    getModelList
 })(DeckPicker)

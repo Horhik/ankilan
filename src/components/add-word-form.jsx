@@ -8,13 +8,13 @@ import {ScrollView} from 'react-native';
 const AddWordForm = props => {
     return (
         <Container style={{padding: 20}}>
+            <DeckPicker/>
             {props.ankiLanModelExists ?
                 <Form>
-                    <DeckPicker/>
                 </Form>
                 :
                 <AnkiTemplate/>
-            }
+                    }
         </Container>
     )
 }

@@ -6,14 +6,14 @@ import {createAnkiLanModel} from '../../actions/createAnkiLanModel';
 
 const AnkiTemplate = props => {
     useEffect(() => {
-        props.checkAnkiLanModelForExisting(props.id)
+        props.checkAnkiLanModelForExisting(props.modelName)
     }, [])
     return(
         <Grid style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text>You have no AnkiLan card template</Text>
             <Button onPress={() => props.createAnkiLanModel({
-                id: props.modelId,
                 name: props.modelName,
+                ...props.currentDeck
             })}><Text>Create</Text></Button>
 
         </Grid>
@@ -22,8 +22,8 @@ const AnkiTemplate = props => {
 }
 
 export default connect(state => ({
-   modelId: state.anki.ankiLanModelID,
-    modelName: state.anki.ankiLanModelName
+    modelName: state.anki.ankiLanModelName,
+    currentDeck: state.anki.selectedDeck
 }), {
     createAnkiLanModel,
     checkAnkiLanModelForExisting

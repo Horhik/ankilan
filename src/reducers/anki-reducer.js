@@ -1,5 +1,6 @@
 import {
   GET_DECK_LIST,
+  GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
   SET_DECK,
   SET_EXISTING_OF_ANKI_LAN_MODEL,
@@ -9,12 +10,15 @@ const initialState = {
   isApiAvailable: false,
   appHasAccess: false,
   deckList: [],
-  selectedDeck: '1',
+  modelList: [],
+  selectedDeck: {
+    id: '1',
+    deck: Object,
+  },
   mainFieldIsAvailable: false,
   fieldList: [],
   ankiLanModelIsAlreadyExists: false,
-  ankiLanModelID: '7410448765670',
-  ankiLanModelName: 'AnkiLan',
+  ankiLanModelName: 'AnkiLan_test',
 };
 
 const ankiReducer = (state = initialState, action) => {
@@ -24,8 +28,13 @@ const ankiReducer = (state = initialState, action) => {
       return {...state, appHasAccess: action.payload};
     case GET_DECK_LIST:
       return {...state, deckList: action.payload};
+    case GET_MODEL_LIST:
+      return {...state, modelList: action.payload};
     case SET_DECK:
-      return {...state, selectedDeck: action.payload};
+      return {
+        ...state,
+        selectedDeck: {...state.selectedDeck, ...action.payload},
+      };
     case SET_EXISTING_OF_ANKI_LAN_MODEL:
       return {...state, ankiLanModelIsAlreadyExists: action.payload};
     default:

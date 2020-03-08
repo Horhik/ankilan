@@ -60,11 +60,20 @@ export const getDeckList = () => async dispatch => {
   }
 };
 
-export const getModelList = async (
-  getModelListFunction = AnkiDroid.getModelList,
-) => {
-  const [err, res] = await getModelListFunction();
-  return err ? {type: ERROR, err} : {type: GET_MODEL_LIST, payload: res};
+const setModelList = res => {
+  return {type: GET_MODEL_LIST, payload: res};
+};
+export const getModelList = () => async dispatch => {
+  try {
+    const [err, res] = await AnkiDroid.getModelList();
+    if (err) {
+      throw err;
+    }
+    console.log(res);
+    await dispatch(setModelList(res));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getFieldList = async (
@@ -82,9 +91,9 @@ const setExistingOfAnkiLanModel = existing => {
     payload: existing,
   };
 };
-export const checkAnkiLanModelForExisting = id => async dispatch => {
+export const checkAnkiLanModelForExisting = name => async dispatch => {
   try {
-    const [err, res] = await AnkiDroid.getFieldList('', id);
+    const [err, res] = await AnkiDroid.getFieldList(name);
     if (err) {
       throw err;
     }
@@ -94,6 +103,5 @@ export const checkAnkiLanModelForExisting = id => async dispatch => {
   } catch (err) {
     await dispatch(setExistingOfAnkiLanModel(false));
     await createAnkiLanModel(id);
-    console.log('errrororo', err);
   }
 };
