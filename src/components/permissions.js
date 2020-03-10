@@ -13,7 +13,7 @@ const Permissions = props => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-      <Button onPress={() => requestAnkiPermission()}>
+      <Button onPress={() => props.requestAnkiPermission()}>
         <Text>Request access</Text>
       </Button>
     </Grid>

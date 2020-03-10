@@ -11,6 +11,7 @@ export const GET_MODEL_LIST = 'GET_MODEL_LIST';
 export const GET_FIELD_LIST = 'GET_FIELD_LIST';
 //Anki set actions
 export const SET_DECK = 'SET_DECK';
+export const SET_FIELD_LIST = 'SET_FIELD_LIST';
 export const SET_WORD_DEFINITION = 'SET_DEFINITION';
 export const SET_WORD_SOUND = 'SET_WORD_SOUND';
 export const SET_WORD_TRANSLATE = 'SET_WORD_TRANSLATE';

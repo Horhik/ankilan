@@ -7,6 +7,7 @@ import {
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
   SET_EXISTING_OF_ANKI_LAN_MODEL,
+  SET_FIELD_LIST,
 } from '../constants/anki-constants';
 import {createAnkiLanModel} from './createAnkiLanModel';
 
@@ -76,12 +77,22 @@ export const getModelList = () => async dispatch => {
   }
 };
 
-export const getFieldList = async (
-  id,
-  getFieldListFunction = AnkiDroid.getFieldList,
-) => {
-  const [err, res] = await getFieldListFunction(id);
-  return err ? {type: ERROR, err} : {type: GET_FIELD_LIST, payload: res};
+export const setFieldList = fieldList => ({
+  type: SET_FIELD_LIST,
+  payload: fieldList,
+});
+
+export const getFieldList = name => async dispatch => {
+  try {
+    const [err, res] = await AnkiDroid.getFieldList(name);
+    if (err) {
+      throw err;
+    }
+    await dispatch(setFieldList(res));
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /*Checking*/

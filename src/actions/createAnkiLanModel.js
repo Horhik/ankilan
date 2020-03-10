@@ -1,6 +1,6 @@
 import {AnkiDroid} from 'react-native-ankidroid/dist/ankidroid';
 import {setAnkiNoteCreator, setCreatorTemplate} from './anki-set-actions';
-import {checkAnkiLanModelForExisting, getModelList} from './anki-get-actions';
+import {checkAnkiLanModelForExisting, getFieldList, getModelList} from './anki-get-actions';
 
 export const createAnkiLanModel = model => async dispatch => {
   try {
@@ -170,6 +170,7 @@ export const createAnkiLanModel = model => async dispatch => {
     addNote(selectedDeck, valueFields, modelFields);
     checkAnkiLanModelForExisting(model.name, model.list);
     await dispatch(getModelList());
+    await dispatch(getFieldList(model.name));
   } catch (err) {
     console.log(err);
   }
