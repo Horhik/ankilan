@@ -38,5 +38,4 @@ export default connect(
   }),
   {
     checkAnkiLanModelForExisting,
-  },
-)(StartScreen);
+  })(StartScreen);

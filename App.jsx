@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
 import StartScreen from './src/components/add-anklan-model';
 import store from './src/store';
 const App = props => {
+    useEffect(() => {
+        alert("heeey")
+    })
   return (
     <Provider store={store}>
       <StartScreen />

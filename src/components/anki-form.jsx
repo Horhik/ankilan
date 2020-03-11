@@ -1,16 +1,19 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import DeckPicker from './view/deck-picker';
-import {Form, Container} from 'native-base';
+import {Form, Container, Item} from 'native-base';
 import AnkiTemplate from './view/add-main-template';
-import {ScrollView} from 'react-native';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
+import InputWord from './view/translatable-word';
+import SubmitButton from './view/submit-button';
 
 const AnkiForm = props => {
   return (
     <Container style={{padding: 20}}>
-      <Form>
+      <Form onSubmit={() => alert('hell')}>
         <DeckPicker />
+        <InputWord />
+        <SubmitButton />
       </Form>
     </Container>
   );

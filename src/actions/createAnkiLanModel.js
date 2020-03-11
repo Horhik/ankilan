@@ -1,6 +1,10 @@
 import {AnkiDroid} from 'react-native-ankidroid/dist/ankidroid';
 import {setAnkiNoteCreator, setCreatorTemplate} from './anki-set-actions';
-import {checkAnkiLanModelForExisting, getFieldList, getModelList} from './anki-get-actions';
+import {
+  checkAnkiLanModelForExisting,
+  getFieldList,
+  getModelList,
+} from './anki-get-actions';
 
 export const createAnkiLanModel = model => async dispatch => {
   try {
