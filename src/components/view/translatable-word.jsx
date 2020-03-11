@@ -8,5 +8,4 @@ const InputWord = props => {
   };
   return <TextField label={'Your word'} onChange={submit} />;
 };
-
 export default connect(state => ({}), {})(InputWord);
