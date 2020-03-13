@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import {TextField} from 'react-native-material-textfield';
 
 const InputWord = props => {
-  const submit = () => {
-    console.log('he');
-  };
+  const submit = () => {};
   return <TextField label={'Your word'} onChange={submit} />;
 };
 export default connect(state => ({}), {})(InputWord);

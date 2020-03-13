@@ -1,4 +1,10 @@
-const initialState = {};
+const initialState = {
+	word: '',
+	translatedObject: {},
+	wordSoundLink: '',
+	dictionaryInfo: {},
+
+};
 
 const apiReducer = (state = initialState, action) => {
   switch (action.type) {

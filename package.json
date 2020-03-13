@@ -12,6 +12,7 @@
     "dependencies": {
         "babel-preset-react-native": "^4.0.1",
         "native-base": "^2.13.8",
+        "node-fetch": "^2.6.0",
         "react": "16.13.0",
         "react-native": "^0.61.5",
         "react-native-ankidroid": "^0.4.0",
