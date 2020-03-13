@@ -10,9 +10,10 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "babel-preset-react-native": "^4.0.1",
         "native-base": "^2.13.8",
         "react": "16.13.0",
-        "react-native": "0.61.5",
+        "react-native": "^0.61.5",
         "react-native-ankidroid": "^0.4.0",
         "react-native-material-textfield": "^0.16.1",
         "react-redux": "^7.2.0",

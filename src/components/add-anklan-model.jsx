@@ -7,9 +7,13 @@ import DeckPicker from './view/deck-picker';
 import AddWordForm from './anki-form';
 import AnkiTemplate from './view/add-main-template';
 import {Grid, Row} from 'native-base';
-import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
+import {checkAnkiLanModelForExisting, getDeckList, getModelList} from '../actions/anki-get-actions';
 
 const StartScreen = props => {
+    useEffect(() => {
+        props.getDeckList();
+        props.getModelList();
+    }, [])
   useEffect(() => {
     props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
   });
@@ -38,4 +42,6 @@ export default connect(
   }),
   {
     checkAnkiLanModelForExisting,
+        getDeckList,
+      getModelList
   })(StartScreen);
