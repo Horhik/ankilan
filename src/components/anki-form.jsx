@@ -6,8 +6,14 @@ import AnkiTemplate from './view/add-main-template';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
 import InputWord from './view/translatable-word';
 import SubmitButton from './view/submit-button';
+import yDictionary from '../actions/api/yandex-dictionary';
+import {wordInfo} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
+  useEffect(() => {
+    props.yDictionary('wealth');
+    props.wordInfo('suck')
+  }, []);
   return (
     <Container style={{padding: 20}}>
       <Form onSubmit={() => alert('hell')}>
@@ -28,5 +34,8 @@ export default connect(
   }),
   {
     checkAnkiLanModelForExisting,
+    yDictionary,
+      wordInfo
+
   },
 )(AnkiForm);

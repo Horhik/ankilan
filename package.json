@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "ankilan",
   "version": "0.0.1",
   "private": true,
@@ -36,4 +37,48 @@
   "jest": {
     "preset": "react-native"
   }
+=======
+    "name": "ankilan",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "android": "react-native run-android",
+        "ios": "react-native run-ios",
+        "start": "react-native start",
+        "test": "jest",
+        "lint": "eslint ."
+    },
+    "dependencies": {
+        "axios": "^0.19.2",
+        "babel-preset-react-native": "^4.0.1",
+        "native-base": "^2.13.8",
+        "node-fetch": "^2.6.0",
+        "react": "16.13.0",
+        "react-native": "^0.61.5",
+        "react-native-ankidroid": "^0.4.0",
+        "react-native-material-textfield": "^0.16.1",
+        "react-redux": "^7.2.0",
+        "redux": "^4.0.5",
+        "redux-devtools-extension": "^2.13.8",
+        "redux-thunk": "^2.3.0",
+        "remote-redux-devtools": "^0.5.16",
+        "unirest": "^0.6.0",
+        "urban-dictionary": "^2.2.1",
+        "urban-dictionary-client": "^3.0.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.8.7",
+        "@babel/runtime": "^7.8.7",
+        "@react-native-community/eslint-config": "^0.0.7",
+        "babel-jest": "^25.1.0",
+        "eslint": "^6.8.0",
+        "jest": "^25.1.0",
+        "metro-react-native-babel-preset": "^0.58.0",
+        "react-test-renderer": "16.13.0",
+        "remotedev-rn-debugger": "^0.8.4"
+    },
+    "jest": {
+        "preset": "react-native"
+    }
+>>>>>>> master
 }
