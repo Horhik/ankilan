@@ -1,0 +1,3 @@
+// export const c = 'c'
+export const SET_YANDEX_DICTIONARY_RESPONSE = 'SET_YANDEX_DICTIONARY_RESPONSE';
+export const SET_AVAILABLE_API = 'SET_AVAILABLE_API';

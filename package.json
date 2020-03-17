@@ -10,6 +10,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "babel-preset-react-native": "^4.0.1",
         "native-base": "^2.13.8",
         "node-fetch": "^2.6.0",
@@ -21,7 +22,10 @@
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
-        "remote-redux-devtools": "^0.5.16"
+        "remote-redux-devtools": "^0.5.16",
+        "unirest": "^0.6.0",
+        "urban-dictionary": "^2.2.1",
+        "urban-dictionary-client": "^3.0.1"
     },
     "devDependencies": {
         "@babel/core": "^7.8.7",

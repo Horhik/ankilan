@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, Button, Grid} from 'native-base';
 import {connect} from 'react-redux';
 import {requestAnkiPermission} from '../actions/anki-get-actions';
+
 const Permissions = props => {
   useEffect(() => {
     props.requestAnkiPermission();
