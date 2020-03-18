@@ -11,8 +11,8 @@ import {wordInfo} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
   useEffect(() => {
-    props.yDictionary('wealth');
-    props.wordInfo('suck')
+    props.yDictionary('like');
+    props.wordInfo('penis poop')
   }, []);
   return (
     <Container style={{padding: 20}}>
