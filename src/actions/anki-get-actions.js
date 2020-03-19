@@ -34,7 +34,6 @@ export const checkAnkiAccess = async (
   ankiApiProvider = AnkiDroid.isApiAvailable,
 ) => {
   const [err, res] = await ankiApiProvider();
-  console.log(res, 'result');
   return err ? {type: ERROR, err} : {type: CHECK_ANKI_ACCESS, payload: res};
 };
 
@@ -109,7 +108,6 @@ export const checkAnkiLanModelForExisting = (
   try {
     for (let model of modelList) {
       if (model.name === name) {
-        console.log('founded');
         await dispatch(setExistingOfAnkiLanModel(true));
         return true;
       }

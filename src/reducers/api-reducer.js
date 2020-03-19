@@ -10,6 +10,7 @@ const initialState = {
   availableApi: {},
   availableApiName: '',
   yandexDictionaryInfo: [],
+  parsedDictionary: {},
 };
 
 const apiReducer = (state = initialState, action) => {
