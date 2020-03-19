@@ -1,10 +1,26 @@
 import yDictionary from '../api/yandex-dictionary';
-export const compoundWithYDictionary = (definitionList, word) => {
-  const translations = (async () => {
-    const res = await yDictionary(word);
-    return await res;
-  })();
-  console.log(translations);
+export const compoundWithYDictionary = async (definitionList, word) => {
+  try {
+    const translations = await yDictionary(word);
+    let compounded = [];
+    // console.log('YANDEX ', translations);
+    // console.log('WORDS', definitionList);
+
+    translations.forEach(translate => {
+      definitionList.words.forEach(definition => {
+        if (definition.pos === translate.pos) {
+          const compound = {...definition, ...translate};
+          compounded.push(compound);
+        }
+      });
+      if (definitionList.words.length === 0) {
+        compounded.push(translate);
+      }
+    });
+    console.log(`RESPONSE FOR: ${word}`, compounded);
+  } catch (e) {
+    console.log('erris HERE', e);
+  }
 };
 
 /*

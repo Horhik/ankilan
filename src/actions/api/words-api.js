@@ -37,8 +37,9 @@ const getDefinitionList = wordsArray => {
     const currentWord = wordsArray[pos.id];
     definitionList.push({
       definition: currentWord.definition,
-      example: currentWord.examples[0],
+      example: currentWord.examples ? currentWord.examples[0] : undefined,
       id: pos.id,
+      pos: pos.pos,
     });
   });
   return definitionList;
@@ -46,5 +47,5 @@ const getDefinitionList = wordsArray => {
 
 export const parseWordsApi = api => ({
   pronunciation: api.pronunciation.all,
-  words: getDefinitionList(api.results),
+  words: api.results ? getDefinitionList(api.results) : [],
 });

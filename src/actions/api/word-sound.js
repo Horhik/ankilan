@@ -1,5 +1,5 @@
-const getAudio = async url => {
-  const site = await fetch(url, {
+const getAudio = async word => {
+  const site = await fetch(word, {
     method: 'GET',
     headers: {'Content-Type': 'text/html'},
   });

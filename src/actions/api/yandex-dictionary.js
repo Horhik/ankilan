@@ -13,8 +13,8 @@ const yDictionary = async (
       {method: 'GET'},
     );
     const json = await res.json();
+    // console.log(word, json.def);
     return findPartofSpeech(json.def);
-    return json.def;
   } catch (e) {
     console.log('err in yandex-dictionary.js: ', e);
   }
@@ -26,14 +26,15 @@ const translateTemplate = (pos, tr) => ({
 });
 
 export const findPartofSpeech = dictionary => {
-  return {
-    type: SET_YANDEX_DICTIONARY_RESPONSE,
-    payload: [
+  if (dictionary.length > 1) {
+    return [
       // TODO create flexible field selector, by poses count
       translateTemplate(dictionary[0].pos, dictionary[0].tr[0].text),
       translateTemplate(dictionary[1].pos, dictionary[1].tr[0].text),
-    ],
-  };
+    ];
+  } else {
+    return [translateTemplate(dictionary[0].pos, dictionary[0].tr[0].text)];
+  }
 };
 
 export default yDictionary;

@@ -29,15 +29,18 @@ const setAvailableApi = api => ({
 export const wordInfo = word => async dispatch => {
   try {
     const api1 = await getResFromWordsAPI(word);
-    const api2 = await getResFromUrbanDictionary(word);
-    const availableApi = getAvailableApi([api1, api2]);
-    if (availableApi === false) {
-      throw new Error('word not found');
-    }
-    console.log(availableApi);
+    //TODO add Urban Dictionary
+
+    // const api2 = await getResFromUrbanDictionary(word);
+    // const availableApi = getAvailableApi([api1, api2]);
+    // if (availableApi === false) {
+    //   throw new Error('word not found');
+    // }
+
     //function which return universal template for more simple interaction with api
-    await dispatch(setAvailableApi(availableApi));
-    createDictionary(availableApi);
+    //TODO available dictionary instead api1
+    await dispatch(setAvailableApi(api1));
+    await createDictionary(api1);
   } catch (e) {
     console.log(e);
   }

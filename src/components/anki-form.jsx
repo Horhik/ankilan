@@ -9,7 +9,14 @@ import {wordInfo} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
   useEffect(() => {
-    props.wordInfo('like')
+    props.wordInfo('Urge');
+      props.wordInfo('Maze');
+      props.wordInfo('Ramification');
+      props.wordInfo('Dare');
+      props.wordInfo('Entrepreneurship');
+      props.wordInfo('meagre');
+      props.wordInfo('meager');
+
   }, []);
   return (
     <Container style={{padding: 20}}>
