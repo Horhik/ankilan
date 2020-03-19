@@ -28,7 +28,6 @@ const initialState = {
 const ankiReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_PERMISSIONS:
-      console.log(action.payload);
       return {...state, appHasAccess: action.payload};
     case GET_DECK_LIST:
       return {...state, deckList: action.payload};
