@@ -4,9 +4,10 @@ import {Button, Text} from 'native-base';
 
 const SubmitButton = props => {
   return (
-    <Button type="submit">
+    <Button onPress={props.onSubmit}>
       <Text>Submit</Text>
     </Button>
   );
 };
-export default connect()(SubmitButton);
+export default SubmitButton
+

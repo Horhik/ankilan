@@ -13,7 +13,6 @@ const yDictionary = async (
       {method: 'GET'},
     );
     const json = await res.json();
-    // console.log(word, json.def);
     return findPartofSpeech(json.def);
   } catch (e) {
     console.log('err in yandex-dictionary.js: ', e);

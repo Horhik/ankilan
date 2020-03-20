@@ -5,7 +5,6 @@ export const compoundWithYDictionary = async (definitionList, word) => {
     let compounded = [];
     // console.log('YANDEX ', translations);
     // console.log('WORDS', definitionList);
-
     translations.forEach(translate => {
       definitionList.words.forEach(definition => {
         if (definition.pos === translate.pos) {
@@ -17,7 +16,8 @@ export const compoundWithYDictionary = async (definitionList, word) => {
         compounded.push(translate);
       }
     });
-    console.log(`RESPONSE FOR: ${word}`, compounded);
+    // console.log(`RESPONSE FOR: ${word}`, {word, compounded});
+    return {word, compounded};
   } catch (e) {
     console.log('erris HERE', e);
   }
@@ -35,6 +35,5 @@ export const compoundWithYDictionary = async (definitionList, word) => {
     });
   })();
   const yDictionaryRes = smallStore.res.payload;
-  alert('foo');
   console.log(yDictionaryRes, definitionList);
 };*/
