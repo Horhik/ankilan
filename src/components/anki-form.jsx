@@ -10,20 +10,20 @@ import {wordInfo} from "../actions/api/dictionary";
 const AnkiForm = props => {
     const [target, setTarget] = useState('')
   useEffect(() => {
-    props.wordInfo('Urge');
-      props.wordInfo('Maze');
-      props.wordInfo('Ramification');
-      props.wordInfo('Dare');
-      props.wordInfo('Entrepreneurship');
-      props.wordInfo('meagre');
-      props.wordInfo('meager');
+    // props.wordInfo('Urge');
+    //   props.wordInfo('Maze');
+    //   props.wordInfo('Ramification');
+    //   props.wordInfo('Dare');
+    //   props.wordInfo('Entrepreneurship');
+    //   props.wordInfo('meagre');
+    //   props.wordInfo('meager');
 
   }, []);
   const getWord = (word) => {
       setTarget(word)
   };
   const submit = () => {
-      props.wordInfo(target)
+      props.wordInfo(target);
   };
 
   return (

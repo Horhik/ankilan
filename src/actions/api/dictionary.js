@@ -12,6 +12,7 @@ import {
   parseUrbanDictionaryApi,
 } from './urban-dictionary';
 import {createDictionary} from '../dictionary/create-dictionary';
+import {setFields} from '../anki-set-actions';
 
 const getAvailableApi = (apiArray = []) => {
   for (const api of apiArray) {
@@ -47,6 +48,7 @@ export const wordInfo = word => async dispatch => {
     await dispatch(setAvailableApi(api1));
     const wordDictionary = await createDictionary(api1);
     dispatch(setDictioanry(wordDictionary));
+    dispatch(setFields(wordDictionary));
   } catch (e) {
     console.log(e);
   }

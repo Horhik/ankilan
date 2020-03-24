@@ -17,7 +17,11 @@ export const compoundWithYDictionary = async (definitionList, word) => {
       }
     });
     // console.log(`RESPONSE FOR: ${word}`, {word, compounded});
-    return {word, compounded};
+    return {
+      word,
+      pronunciation: `/${definitionList.pronunciation}/`,
+      compounded,
+    };
   } catch (e) {
     console.log('erris HERE', e);
   }
