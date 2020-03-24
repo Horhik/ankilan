@@ -20,7 +20,7 @@ const initialState = {
   mainFieldIsAvailable: false,
   fieldList: [],
   ankiLanModelIsAlreadyExists: false,
-  ankiLanModelName: 'AnkiLan_final',
+  ankiLanModelName: 'AnkiLan_final1',
   noteCreator: {},
   noteTemplate: [],
 };

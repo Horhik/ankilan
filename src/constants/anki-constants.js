@@ -22,3 +22,7 @@ export const SET_FIELDS = 'SET_FIELDS';
 export const SHOW_FIELDS = 'SHOW_FIELDS';
 // Anki check actions
 export const SET_EXISTING_OF_ANKI_LAN_MODEL = 'SET_EXISTING_OF_ANKI_LAN_MODEL';
+
+//rn-async-storage kesy
+export const ANKILAN_NOTE_CREATOR = '@ANKILAN_NOTE_CREATOR';
+export const ANKILAN_NOTE_TEMPLATE = '@ANKILAN_NOTE_TEMPLATE';

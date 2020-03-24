@@ -1,5 +1,6 @@
 import {AnkiDroid} from 'react-native-ankidroid/dist/ankidroid';
 import {setAnkiNoteCreator, setCreatorTemplate} from './anki-set-actions';
+import sendDataToLocaleStorage from './filesystem';
 import {
   checkAnkiLanModelForExisting,
   getFieldList,
@@ -171,6 +172,10 @@ export const createAnkiLanModel = model => async dispatch => {
     const selectedDeck = new AnkiDroid(settings);
     await dispatch(setAnkiNoteCreator(selectedDeck));
     await dispatch(setCreatorTemplate(modelFields));
+    sendDataToLocaleStorage(
+      setAnkiNoteCreator(selectedDeck), //send creator to locale storage
+      setCreatorTemplate(modelFields),
+    );
     addNote(selectedDeck, valueFields, modelFields);
     checkAnkiLanModelForExisting(model.name, model.list);
     await dispatch(getModelList());
@@ -180,6 +185,7 @@ export const createAnkiLanModel = model => async dispatch => {
   }
 };
 
+//creator is an object what have to store in locale storage.
 export const addNote = (creator, words, template) => {
   creator.addNote(words, template);
 };
