@@ -5026,6 +5026,11 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
+jsonfn@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/jsonfn/-/jsonfn-0.31.0.tgz#8cd09ee376d46df75c2c0de3c548a95dbb81dc8b"
+  integrity sha1-jNCe43bUbfdcLA3jxUipXbuB3Is=
+
 jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
