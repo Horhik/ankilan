@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import DeckPicker from './view/deck-picker';
 import {Form, Container, Item} from 'native-base';
@@ -8,22 +8,30 @@ import SubmitButton from './view/submit-button';
 import {wordInfo} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
+    const [target, setTarget] = useState('')
   useEffect(() => {
-    props.wordInfo('Urge');
-      props.wordInfo('Maze');
-      props.wordInfo('Ramification');
-      props.wordInfo('Dare');
-      props.wordInfo('Entrepreneurship');
-      props.wordInfo('meagre');
-      props.wordInfo('meager');
+    // props.wordInfo('Urge');
+    //   props.wordInfo('Maze');
+    //   props.wordInfo('Ramification');
+    //   props.wordInfo('Dare');
+    //   props.wordInfo('Entrepreneurship');
+    //   props.wordInfo('meagre');
+    //   props.wordInfo('meager');
 
   }, []);
+  const getWord = (word) => {
+      setTarget(word)
+  };
+  const submit = () => {
+      props.wordInfo(target);
+  };
+
   return (
     <Container style={{padding: 20}}>
-      <Form onSubmit={() => alert('hell')}>
+      <Form >
         <DeckPicker />
-        <InputWord />
-        <SubmitButton />
+        <InputWord word={getWord} onSubmit={submit}/>
+        <SubmitButton onSubmit={submit} />
       </Form>
     </Container>
   );

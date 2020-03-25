@@ -1,5 +1,6 @@
 import {
   SET_AVAILABLE_API,
+  SET_PARSED_DICTIONARY,
   SET_YANDEX_DICTIONARY_RESPONSE,
 } from '../constants/api-constants';
 
@@ -25,6 +26,11 @@ const apiReducer = (state = initialState, action) => {
         ...state,
         availableApi: action.payload,
         availableApiName: action.payload.source,
+      };
+    case SET_PARSED_DICTIONARY:
+      return {
+        ...state,
+        parsedDictionary: action.payload,
       };
     default:
       return state;

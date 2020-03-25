@@ -69,7 +69,6 @@ export const getModelList = () => async dispatch => {
     if (err) {
       throw err;
     }
-    console.log(res);
     await dispatch(setModelList(res));
   } catch (err) {
     console.log(err);

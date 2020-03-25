@@ -1,6 +1,7 @@
 import {search} from 'urban-dictionary-client';
 import {
   SET_AVAILABLE_API,
+  SET_PARSED_DICTIONARY,
   URBAN_DICTIONARY_API,
   WORDS_API,
 } from '../../constants/api-constants';
@@ -11,6 +12,8 @@ import {
   parseUrbanDictionaryApi,
 } from './urban-dictionary';
 import {createDictionary} from '../dictionary/create-dictionary';
+import {setFields} from '../anki-set-actions';
+import {sendWord, submit} from '../form-actions';
 
 const getAvailableApi = (apiArray = []) => {
   for (const api of apiArray) {
@@ -24,6 +27,10 @@ const getAvailableApi = (apiArray = []) => {
 const setAvailableApi = api => ({
   type: SET_AVAILABLE_API,
   payload: api,
+});
+const setDictioanry = dictioanry => ({
+  type: SET_PARSED_DICTIONARY,
+  payload: dictioanry,
 });
 
 export const wordInfo = word => async dispatch => {
@@ -40,7 +47,9 @@ export const wordInfo = word => async dispatch => {
     //function which return universal template for more simple interaction with api
     //TODO available dictionary instead api1
     await dispatch(setAvailableApi(api1));
-    await createDictionary(api1);
+    const wordDictionary = await createDictionary(api1);
+    dispatch(setDictioanry(wordDictionary));
+    sendWord(setFields(wordDictionary));
   } catch (e) {
     console.log(e);
   }
