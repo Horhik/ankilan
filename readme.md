@@ -17,10 +17,10 @@ react-native run-android
 if something not working read [react native docs](https://reactnative.dev/docs/getting-started)
 
 ## Debug
-#####For linux:
+##### For linux:
 Read [this](https://gist.github.com/Horhik/28c40259a79fabdd358822cede105c09#file-rn-redux-devtools-md)
 Instead yarn start and react-native run-android, you may launch `./rn-start.sh` and `./tools-start.sh`
-#####Other
+##### Other
 It's up to you 😜
 
 ## Goals
