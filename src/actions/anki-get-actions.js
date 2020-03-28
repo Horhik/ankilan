@@ -105,8 +105,10 @@ export const checkAnkiLanModelForExisting = (
   modelList,
 ) => async dispatch => {
   try {
+    let id = 0;
     for (let model of modelList) {
       if (model.name === name) {
+        id = model.id;
         await dispatch(setExistingOfAnkiLanModel(true));
         return true;
       }
@@ -117,4 +119,17 @@ export const checkAnkiLanModelForExisting = (
     console.log(err);
     await dispatch(setExistingOfAnkiLanModel(false));
   }
+};
+
+export const getModelId = (models, name) => {
+  console.log(models, name);
+  let id = '';
+  models.forEach(model => {
+    if (model.name === name) {
+      console.log('id', model.id);
+      id = model.id;
+      return id;
+    }
+  });
+  return id;
 };

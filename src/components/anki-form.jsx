@@ -9,6 +9,7 @@ import {wordInfo} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
     const [target, setTarget] = useState('')
+    const [fields, setFields] = useState({})
   useEffect(() => {
     // props.wordInfo('Urge');
     //   props.wordInfo('Maze');

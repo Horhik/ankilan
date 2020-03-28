@@ -14,6 +14,9 @@ import {
 import {createDictionary} from '../dictionary/create-dictionary';
 import {setFields} from '../anki-set-actions';
 import {sendWord, submit} from '../form-actions';
+import store from '../../store';
+import {getModelId} from '../anki-get-actions';
+import {AnkiDroid} from 'react-native-ankidroid/dist/ankidroid';
 
 const getAvailableApi = (apiArray = []) => {
   for (const api of apiArray) {
@@ -52,6 +55,7 @@ export const wordInfo = word => async dispatch => {
     dispatch(setDictioanry(wordDictionary));
     /* TODO: move sendWord to submit function */
     // sendWord(setFields(wordDictionary));
+    drawFields();
   } catch (e) {
     console.log(e);
   }

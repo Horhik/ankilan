@@ -1,6 +1,6 @@
 import {AnkiDroid} from 'react-native-ankidroid/dist/ankidroid';
 import {setAnkiNoteCreator, setCreatorTemplate} from './anki-set-actions';
-import sendDataToLocaleStorage from './filesystem';
+import sendDataToLocaleStorage, {getAnkiData} from './filesystem';
 import setSettings, {
   modelFields,
   valueFields,
@@ -8,6 +8,7 @@ import setSettings, {
 import {
   checkAnkiLanModelForExisting,
   getFieldList,
+  getModelId,
   getModelList,
 } from './anki-get-actions';
 
@@ -16,15 +17,15 @@ import store from '../store';
 export const createAnkiLanModel = model => async dispatch => {
   try {
     const settings = setSettings(model);
-
     const selectedDeck = new AnkiDroid(settings);
     await dispatch(setAnkiNoteCreator(selectedDeck));
     await dispatch(setCreatorTemplate(modelFields));
     // const sd = JSON.parse(JSON.stringify(selectedDeck));
     // console.log(sd === selectedDeck);
     // ****************
-    alert('oh shit');
-    addNote(selectedDeck, valueFields, modelFields);
+
+    firstNote(selectedDeck, valueFields, modelFields);
+
     // ****************
     // sendDataToLocaleStorage(
     //   setAnkiNoteCreator(sd), //send creator to locale storage
@@ -32,19 +33,31 @@ export const createAnkiLanModel = model => async dispatch => {
     // );
     checkAnkiLanModelForExisting(model.name, model.list);
     await dispatch(getModelList());
-    await dispatch(getFieldList(model.name));
+    const [err, modelList] = await AnkiDroid.getModelList();
+    const modelId = await getModelId(modelList, model.name);
+    await console.log(modelId);
+    const [, fieldList] = await AnkiDroid.getFieldList(model.name);
+
+    sendDataToLocaleStorage({
+      fieldList,
+      modelName: model.name,
+      modelId,
+    });
   } catch (err) {
-    console.log(err);
+    console.log('irror is ghere', err);
   }
 };
 
+const firstNote = (creator, fields, template) =>
+  creator.addNote(fields, template);
 //creator is an object what have to store in locale storage.
-export const addNote = words => {
+export const addNote = async words => {
   const template = store.getState().anki.noteTemplate;
   const deckId = store.getState().anki.selectedDeck.id;
+  const modelId = await getAnkiData().modelId;
   const settings = {
     deckId,
-    modelId: '1585139654585',
+    modelId,
   };
   const creator = new AnkiDroid(settings);
 
