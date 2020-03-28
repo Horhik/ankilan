@@ -41,8 +41,9 @@ export const createAnkiLanModel = model => async dispatch => {
 //creator is an object what have to store in locale storage.
 export const addNote = words => {
   const template = store.getState().anki.noteTemplate;
+  const deckId = store.getState().anki.selectedDeck.id;
   const settings = {
-    deckId: '1',
+    deckId,
     modelId: '1585139654585',
   };
   const creator = new AnkiDroid(settings);

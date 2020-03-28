@@ -1,4 +1,19 @@
 import yDictionary from '../api/yandex-dictionary';
+
+const selectByPos = wordArray => {
+  let posSet = new Set();
+  let selectedArray = [];
+  wordArray.forEach((result, id) => {
+    const pos = result.pos;
+    if (!posSet.has(pos)) {
+      posSet.add(pos);
+      selectedArray.push(result);
+    }
+  });
+  console.log(selectedArray);
+  return selectedArray;
+};
+
 export const compoundWithYDictionary = async (definitionList, word) => {
   try {
     const translations = await yDictionary(word);
@@ -16,28 +31,16 @@ export const compoundWithYDictionary = async (definitionList, word) => {
         compounded.push(translate);
       }
     });
+    console.log(compounded);
+    const selected = selectByPos(compounded);
     // console.log(`RESPONSE FOR: ${word}`, {word, compounded});
     return {
       word,
       pronunciation: `/${definitionList.pronunciation}/`,
       compounded,
+      filtered: selected,
     };
   } catch (e) {
-    console.log('erris HERE', e);
+    console.log('error is HERE', e);
   }
 };
-
-/*
-import yDictionary from '../api/yandex-dictionary';
-let smallStore = {};
-
-export const compoundWithYDictionary = async (definitionList, word) => {
-  let properDefinitions = [];
-  const translations = (() => {
-    yDictionary(word).then(res => {
-      smallStore.res = res;
-    });
-  })();
-  const yDictionaryRes = smallStore.res.payload;
-  console.log(yDictionaryRes, definitionList);
-};*/

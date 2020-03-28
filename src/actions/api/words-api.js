@@ -17,31 +17,18 @@ export async function getResFromWordsAPI(word) {
   return Promise.resolve(res);
 }
 
-const parsePOS = wordArray => {
-  let posSet = new Set();
-  let posArray = [];
-  wordArray.forEach((result, id) => {
-    const pos = result.partOfSpeech;
-    if (!posSet.has(pos)) {
-      posSet.add(pos);
-      posArray.push({pos, id});
-    }
-  });
-  return posArray;
-};
 //get all what anki template need for template
 const getDefinitionList = wordsArray => {
-  const partOfSpeeches = parsePOS(wordsArray);
   let definitionList = [];
-  partOfSpeeches.forEach(pos => {
-    const currentWord = wordsArray[pos.id];
+  /*partOfSpeeches*/
+  wordsArray.forEach(currentWord => {
     definitionList.push({
       definition: currentWord.definition,
       example: currentWord.examples ? currentWord.examples[0] : undefined,
-      id: pos.id,
-      pos: pos.pos,
+      pos: currentWord.partOfSpeech,
     });
   });
+  console.log(definitionList);
   return definitionList;
 };
 

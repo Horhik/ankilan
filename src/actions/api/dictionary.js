@@ -36,21 +36,25 @@ const setDictioanry = dictioanry => ({
 export const wordInfo = word => async dispatch => {
   try {
     const api1 = await getResFromWordsAPI(word);
+
     //TODO add Urban Dictionary
-
-    // const api2 = await getResFromUrbanDictionary(word);
-    // const availableApi = getAvailableApi([api1, api2]);
-    // if (availableApi === false) {
-    //   throw new Error('word not found');
-    // }
-
+    /* ********Working with Urban Dictionary*******
+     const api2 = await getResFromUrbanDictionary(word);
+     const availableApi = getAvailableApi([api1, api2]);
+     if (availableApi === false) {
+       throw new Error('word not found');
+     }
+  */
     //function which return universal template for more simple interaction with api
     //TODO available dictionary instead api1
     await dispatch(setAvailableApi(api1));
     const wordDictionary = await createDictionary(api1);
     dispatch(setDictioanry(wordDictionary));
-    sendWord(setFields(wordDictionary));
+    /* TODO: move sendWord to submit function */
+    // sendWord(setFields(wordDictionary));
   } catch (e) {
     console.log(e);
   }
 };
+
+export const drawFields = fields => {};

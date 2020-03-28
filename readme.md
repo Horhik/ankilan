@@ -5,7 +5,7 @@ App which provide translating and adding words to anki
  ![screenshot](./readme-files/screenshot1.png)
  
 ## Build and start
-```shell
+```bash
 git clone https://github.com/Horhik/ankilan
 yarn install
 
