@@ -18,7 +18,10 @@ const StartScreen = props => {
     props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
   });
   return (
-    <ScrollView>
+    <ScrollView
+    keyboardShouldPersistTaps='handled'
+    >
+
       {props.ankiAvailable ? (
         props.ankiLanModelExists ? (
           <AddWordForm />
