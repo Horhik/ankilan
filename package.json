@@ -20,6 +20,7 @@
         "react-native": "^0.61.5",
         "react-native-ankidroid": "^0.4.0",
         "react-native-material-textfield": "^0.16.1",
+        "react-native-vector-icons": "^6.6.0",
         "react-redux": "^7.2.0",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
