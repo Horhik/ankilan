@@ -23,7 +23,10 @@
         "react-native": "^0.62.0",
         "react-native-ankidroid": "^0.4.0",
         "react-native-material-textfield": "^0.16.1",
+<<<<<<< HEAD
         "react-native-svg": "^12.0.3",
+=======
+>>>>>>> fixed
         "react-native-vector-icons": "^6.6.0",
         "react-redux": "^7.2.0",
         "redux": "^4.0.5",
