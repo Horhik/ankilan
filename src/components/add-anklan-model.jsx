@@ -14,31 +14,6 @@ import {
 } from '../actions/anki-get-actions';
 
 const StartScreen = props => {
-<<<<<<< HEAD
-    useEffect(() => {
-        props.getDeckList();
-        props.getModelList();
-    }, [])
-  useEffect(() => {
-    props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
-  });
-  return (
-    <ScrollView
-    keyboardShouldPersistTaps='handled'
-    >
-
-      {props.ankiAvailable ? (
-        props.ankiLanModelExists ? (
-          <AddWordForm />
-        ) : (
-          <AnkiTemplate />
-        )
-      ) : (
-        <Permissions />
-      )}
-    </ScrollView>
-  );
-=======
 	useEffect(() => {
 		props.getDeckList();
 		props.getModelList();
@@ -62,7 +37,6 @@ const StartScreen = props => {
 			)}
 		</ScrollView>
 	);
->>>>>>> fixed
 };
 
 export default connect(
