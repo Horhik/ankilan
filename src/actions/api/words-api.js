@@ -21,18 +21,33 @@ export async function getResFromWordsAPI(word) {
 const getDefinitionList = wordsArray => {
   let definitionList = [];
   /*partOfSpeeches*/
-  wordsArray.forEach(currentWord => {
-    definitionList.push({
-      definition: currentWord.definition,
-      example: currentWord.examples ? currentWord.examples[0] : undefined,
-      pos: currentWord.partOfSpeech,
-    });
+  let posSet = new Set();
+  let examples = [];
+  wordsArray.forEach(words => {
+    posSet.add(words.partOfSpeech);
+    if (words.examples) {
+      examples.push(...words.examples);
+    }
   });
-  console.log(definitionList);
-  return definitionList;
+
+  posSet.forEach(pos => {
+    let defArray = [];
+    wordsArray.forEach(words => {
+      if (pos === words.partOfSpeech) {
+        defArray.push(words.definition);
+      }
+    });
+    definitionList.push({pos, definitions: defArray});
+  });
+  return {examples, definitions: definitionList};
 };
 
-export const parseWordsApi = api => ({
-  pronunciation: api.pronunciation.all,
-  words: api.results ? getDefinitionList(api.results) : [],
-});
+export const parseWordsApi = api => {
+  const words = getDefinitionList(api.results).definitions;
+  const examples = getDefinitionList(api.results).examples;
+  return {
+    pronunciation: api.pronunciation.all,
+    words: api.results ? words : [],
+    examples,
+  };
+};

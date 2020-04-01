@@ -2,6 +2,7 @@ import {
   GET_DECK_LIST,
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
+  SET_ANKI_DATA,
   SET_ANKI_NOTE_CREATOR,
   SET_CREATOR_TEMPLATE,
   SET_DECK,
@@ -23,6 +24,7 @@ const initialState = {
   ankiLanModelName: 'develop_final',
   noteCreator: {},
   noteTemplate: [],
+  savedData: {},
 };
 
 const ankiReducer = (state = initialState, action) => {
@@ -44,6 +46,11 @@ const ankiReducer = (state = initialState, action) => {
       return {...state, noteTemplate: action.payload};
     case SET_ANKI_NOTE_CREATOR:
       return {...state, noteCreator: action.payload};
+    case SET_ANKI_DATA:
+      return {
+        ...state,
+        savedData: action.payload,
+      };
     default:
       return state;
   }

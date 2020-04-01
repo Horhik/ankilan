@@ -18,6 +18,7 @@ export const SET_WORD_TRANSLATE = 'SET_WORD_TRANSLATE';
 export const SET_ANKI_NOTE_CREATOR = 'SET_ANKI_NOTE_CREATOR';
 export const SET_CREATOR_TEMPLATE = 'SET_CREATOR_TEMPLATE';
 export const SET_FIELDS = 'SET_FIELDS';
+export const SET_ANKI_DATA = 'SET_ANKI_DATA';
 //Anki ui actions
 export const SHOW_FIELDS = 'SHOW_FIELDS';
 // Anki check actions
