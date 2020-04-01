@@ -13,7 +13,8 @@ const yDictionary = async (
       {method: 'GET'},
     );
     const json = await res.json();
-    return findPartofSpeech(json.def);
+    // console.log('JSON', json);
+    return parseResponse(json.def)
   } catch (e) {
     console.log('err in yandex-dictionary.js: ', e);
   }
@@ -23,6 +24,15 @@ const translateTemplate = (pos, tr) => ({
   pos,
   tr,
 });
+
+const parseResponse = res => {
+  const parsed = res.map((item, id) => {
+    const pos = item.pos;
+    const tr = item.tr.map(translate => translate.text);
+    return {pos, tr};
+  });
+  return parsed;
+};
 
 export const findPartofSpeech = dictionary => {
   if (dictionary.length > 1) {

@@ -11,12 +11,14 @@ import {
 	checkAnkiLanModelForExisting,
 	getDeckList,
 	getModelList,
+	getSavedData
 } from '../actions/anki-get-actions';
 
 const StartScreen = props => {
 	useEffect(() => {
 		props.getDeckList();
 		props.getModelList();
+		props.getSavedData();
 	}, []);
 	useEffect(() => {
 		props.checkAnkiLanModelForExisting(
@@ -51,5 +53,6 @@ export default connect(
 		checkAnkiLanModelForExisting,
 		getDeckList,
 		getModelList,
+		getSavedData
 	},
 )(StartScreen);

@@ -6,10 +6,12 @@ import {
   GET_FIELD_LIST,
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
+  SET_ANKI_DATA,
   SET_EXISTING_OF_ANKI_LAN_MODEL,
   SET_FIELD_LIST,
 } from '../constants/anki-constants';
 import {createAnkiLanModel} from './createAnkiLanModel';
+import {getAnkiData} from './filesystem';
 
 /*Permissions*/
 
@@ -22,7 +24,6 @@ export const requestAnkiPermission = () => async dispatch => {
   try {
     const [err, res] = await AnkiDroid.requestPermission();
     if (err) throw err;
-    console.log(res);
     await dispatch(setRequestAnkiPermissions(err, res));
     return res;
   } catch (err) {
@@ -122,14 +123,22 @@ export const checkAnkiLanModelForExisting = (
 };
 
 export const getModelId = (models, name) => {
-  console.log(models, name);
-  let id = '';
+  let id;
   models.forEach(model => {
     if (model.name === name) {
-      console.log('id', model.id);
       id = model.id;
       return id;
     }
   });
   return id;
+};
+
+const setSavedData = data => ({
+  type: SET_ANKI_DATA,
+  payload: data,
+});
+
+export const getSavedData = () => async dispatch => {
+  const data = await getAnkiData();
+  setSavedData(data);
 };

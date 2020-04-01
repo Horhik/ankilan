@@ -27,7 +27,6 @@ const AnkiForm = props => {
 	const submit = () => {
 		props.wordInfo(target);
 		setSubmitted(true);
-		console.log(props.data)
 	};
 
 	return (
