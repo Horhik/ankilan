@@ -17,18 +17,18 @@ const FieldList = props => {
     },[props.response])
     useEffect(() => {
             console.log(sound, pronunciation)
-        console.log("EXFSDFS", examples)
         }
     )
     return (
         <View>
-            <PickerList/>
-            <TextInput value={sound}  label={'Sound'}/>
-            <TextInput value={pronunciation}  label={'Transcription'}/>
+            <PickerList labelNum={1}/>
+            <PickerList labelNum={2}/>
             <FieldEditor data={{
                 label: 'Usage example',
                 values: examples || ['can not find the example']
             }}/>
+            <TextInput value={sound}  label={'Sound'}/>
+            <TextInput value={pronunciation}  label={'Transcription'}/>
         </View>
     )
 }

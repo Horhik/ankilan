@@ -6,8 +6,6 @@ const TextInput = props => {
   const input = useRef();
   const [text, setText] = useState(props.value);
   useEffect(() => {
-    console.log('changing');
-    console.log(props.value);
     setText(props.value);
     input.current.setValue(props.value);
   }, [props, props.value]);

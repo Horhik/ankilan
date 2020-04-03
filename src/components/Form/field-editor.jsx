@@ -5,9 +5,10 @@ import {StyleSheet, TextInput} from 'react-native';
 import {View, Text, Button, Picker} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconedButton from '../view/iconed-button.jsx';
+import {POS_PICKER} from '../../constants/component-types';
 const FieldEditor = props => {
   const [data, setData] = useState({});
-  const [editing, setEditing] = useState(true);
+  const [editing, setEditing] = useState(false);
   const label = props.data.label;
   const [selectedValue, setSelectedValue] = useState(props.data.values[0]);
   const [userTyped, setUserTyped] = useState('');
@@ -17,8 +18,14 @@ const FieldEditor = props => {
     console.log(props.data)
   }, []);
 
-  const selectValue = value => {
-    setSelectedValue(value);
+  const selectValue = selected => {
+    setSelectedValue(selected);
+    if(props.type === POS_PICKER){
+      data.values.forEach((value, id) => {
+        if(value === selected)
+        props.onSelect(id)
+      })
+    }
   };
   const typing = text => {
     console.log(text);
@@ -74,7 +81,8 @@ const FieldEditor = props => {
             <TextField
               lineType={'none'}
               multiline={true}
-              label={data.type}
+              label={props.data.label}
+
               value={selectedValue}
               editable={true}
               ref={input}
@@ -82,7 +90,7 @@ const FieldEditor = props => {
             />
           ) : (
             <View>
-              <Text style={styles.pickerLabel}>{'label'}</Text>
+              <Text style={styles.pickerLabel}>{props.data.label}</Text>
               <Picker
                 selectedValue={selectedValue}
                 onValueChange={value => selectValue(value)}>

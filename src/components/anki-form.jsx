@@ -10,57 +10,57 @@ import FieldEditor from './Form/field-editor';
 import FieldList from './Form/field-list';
 
 const AnkiForm = props => {
-	const [target, setTarget] = useState('');
-	const [fields, setFields] = useState({});
-	const [submitted, setSubmitted] = useState(true);
-	useEffect(() => {
-		// props.wordInfo('Urge');
-		//   props.wordInfo('Maze');
-		//   props.wordInfo('Ramification');
-		//   props.wordInfo('Dare');
-		//   props.wordInfo('Entrepreneurship');
-		//   props.wordInfo('meagre');
-		//   props.wordInfo('meager');
-	}, []);
-	const getWord = word => {
-		setTarget(word);
-	};
-	const submit = () => {
-		props.wordInfo(target);
-		setSubmitted(true);
-	};
+  const [target, setTarget] = useState('');
+  const [fields, setFields] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    // props.wordInfo('Urge');
+    //   props.wordInfo('Maze');
+    //   props.wordInfo('Ramification');
+    //   props.wordInfo('Dare');
+    //   props.wordInfo('Entrepreneurship');
+    //   props.wordInfo('meagre');
+    //   props.wordInfo('meager');
+  }, []);
+  const getWord = word => {
+    setTarget(word);
+  };
+  const submit = () => {
+    props.wordInfo(target);
+    setSubmitted(true);
+  };
 
-	return (
-		<Container style={{padding: 20}}>
-			<Form>
-				<DeckPicker />
-				<InputWord word={getWord} onSubmit={submit} />
-				{submitted ? (
-					// <FieldEditor
-					// 	data={{
-					// 		type: 'part of speech',
-					// 		values: ['1', '2', '3','5',],
-					// 	}}
-					// />
-                    <FieldList/>
-				) : (
-					<SubmitButton onSubmit={submit} />
-				)}
-			</Form>
-		</Container>
-	);
+  return (
+    <Container style={{padding: 20}}>
+      <Form>
+        <DeckPicker />
+        <InputWord word={getWord} onSubmit={submit} />
+        {submitted ? (
+          // <FieldEditor
+          // 	data={{
+          // 		type: 'part of speech',
+          // 		values: ['1', '2', '3','5',],
+          // 	}}
+          // />
+          <FieldList />
+        ) : (
+          <SubmitButton onSubmit={submit} />
+        )}
+      </Form>
+    </Container>
+  );
 };
 
 export default connect(
-	state => ({
-		ankiLanModelExists: state.anki.ankiLanModelIsAlreadyExists,
-		modelName: state.anki.ankiLanModelName,
-		modelList: state.anki.modelList,
-		creator: state.anki.noteCreator,
-		data: state
-	}),
-	{
-		checkAnkiLanModelForExisting,
-		wordInfo,
-	},
+  state => ({
+    ankiLanModelExists: state.anki.ankiLanModelIsAlreadyExists,
+    modelName: state.anki.ankiLanModelName,
+    modelList: state.anki.modelList,
+    creator: state.anki.noteCreator,
+    data: state,
+  }),
+  {
+    checkAnkiLanModelForExisting,
+    wordInfo,
+  },
 )(AnkiForm);
