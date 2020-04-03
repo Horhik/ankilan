@@ -5,6 +5,7 @@ import {Form, Container, Item} from 'native-base';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
 import InputWord from './view/translatable-word';
 import SubmitButton from './Form/submit-button';
+import {ScrollView} from 'react-native'
 import {wordInfo} from '../actions/api/dictionary';
 import FieldEditor from './Form/field-editor';
 import FieldList from './Form/field-list';
@@ -31,23 +32,17 @@ const AnkiForm = props => {
   };
 
   return (
-    <Container style={{padding: 20}}>
+    <ScrollView style={{padding: 20}}>
       <Form>
         <DeckPicker />
         <InputWord word={getWord} onSubmit={submit} />
-        {submitted ? (
-          // <FieldEditor
-          // 	data={{
-          // 		type: 'part of speech',
-          // 		values: ['1', '2', '3','5',],
-          // 	}}
-          // />
+        {(submitted && props.available) ? (
           <FieldList />
         ) : (
           <SubmitButton onSubmit={submit} />
         )}
       </Form>
-    </Container>
+    </ScrollView>
   );
 };
 
@@ -58,6 +53,7 @@ export default connect(
     modelList: state.anki.modelList,
     creator: state.anki.noteCreator,
     data: state,
+      available: state.api.apiIsLoaded,
   }),
   {
     checkAnkiLanModelForExisting,

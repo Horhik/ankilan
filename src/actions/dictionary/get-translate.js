@@ -20,8 +20,8 @@ export const compoundWithYDictionary = async (definitionList, word) => {
     const words = definitionList.words;
     let compounded = [];
 
-    console.log('YANDEX ', translations);
-    console.log('WORDS', definitionList);
+    // console.log('YANDEX ', translations);
+    // console.log('WORDS', definitionList);
     let PoSes = new Set();
     translations.forEach(tr => PoSes.add(tr.pos));
     words.forEach(df => PoSes.add(df.pos));

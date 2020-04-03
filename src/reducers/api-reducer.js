@@ -16,6 +16,7 @@ const initialState = {
   parsedDictionary: {},
   availableFields: [],
   allFields: [],
+  apiIsLoaded: false,
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ const apiReducer = (state = initialState, action) => {
       return {
         ...state,
         parsedDictionary: action.payload,
+          apiIsLoaded: true,
       };
     case SET_FIELDS:
       return {

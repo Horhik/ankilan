@@ -47,7 +47,8 @@ const modelFields = [
     tr2.pos || '',
     tr2.tr || '',
     tr2.definition || '',
-    `${tr1.example || ''} \n ${tr2.example || ''}`,
+    // `${tr1.example || ''} \n ${tr2.example || ''}`,
+    dict.example,
     dict.pronunciation,
     `[sound:${dict.sound}]`,
   ];

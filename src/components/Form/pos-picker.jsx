@@ -8,10 +8,8 @@ const PosPicker = props => {
   const [ready, setReady] = useState(false);
   const [poses, setPoses] = useState([]);
   useEffect(() => {
-    console.log('PRT', props.parts);
     if (props.parts) {
       let posArray = props.parts.map((part, id) => part.pos);
-      console.log('ARRRRAY', posArray);
       setPoses(posArray);
       setReady(true);
     }

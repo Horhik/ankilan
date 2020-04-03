@@ -7,35 +7,50 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconedButton from '../view/iconed-button.jsx';
 import {POS_PICKER} from '../../constants/component-types';
 const FieldEditor = props => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(props.data);
+  const [values, setValues] = useState(props.data.values);
   const [editing, setEditing] = useState(false);
-  const label = props.data.label;
   const [selectedValue, setSelectedValue] = useState(props.data.values[0]);
-  const [userTyped, setUserTyped] = useState('');
+  const [userText, setUserText] = useState('');
   const input = useRef();
+  const [finalText, setFinalText] = useState(props.data.values[0]);
   useEffect(() => {
     setData(props.data);
-    console.log(props.data)
-  }, []);
+    setValues(props.data.values)
+  }, [props]);
 
   const selectValue = selected => {
     setSelectedValue(selected);
-    if(props.type === POS_PICKER){
-      data.values.forEach((value, id) => {
-        if(value === selected)
-        props.onSelect(id)
-      })
+    if (props.type === POS_PICKER) {
+      values.forEach((value, id) => {
+        if (value === selected) props.onSelect(id);
+      });
     }
   };
   const typing = text => {
-    console.log(text);
-    setUserTyped(text);
+    setUserText(text);
+  };
+  const select = value => {
+    setFinalText(value);
+    setUserText(value);
+    selectValue(value);
   };
   const confirmTyped = () => {
-    const values = data.values;
-    setData({...data, values: [...values, userTyped]});
+    let newValues = new Set(values);
+    newValues.add(userText);
+    setValues(Array.from(newValues));
+    setData({...data, values: [...values, userText]});
+    console.log(values);
   };
 
+  useEffect(() => {
+    if (props.data.values !== values) {
+      setSelectedValue(values[values.length - 1]);
+    }
+  }, [values]);
+
+  useEffect(() => {
+  });
   const styles = StyleSheet.create({
     wrapper: {},
     inner: {
@@ -82,8 +97,7 @@ const FieldEditor = props => {
               lineType={'none'}
               multiline={true}
               label={props.data.label}
-
-              value={selectedValue}
+              value={userText}
               editable={true}
               ref={input}
               onChangeText={text => typing(text)}
@@ -93,8 +107,8 @@ const FieldEditor = props => {
               <Text style={styles.pickerLabel}>{props.data.label}</Text>
               <Picker
                 selectedValue={selectedValue}
-                onValueChange={value => selectValue(value)}>
-                {props.data.values.map((value, id) => {
+                onValueChange={value => select(value)}>
+                {values.map((value, id) => {
                   return <Picker.Item value={value} label={value} key={id} />;
                 })}
               </Picker>

@@ -28,3 +28,14 @@ export const SET_EXISTING_OF_ANKI_LAN_MODEL = 'SET_EXISTING_OF_ANKI_LAN_MODEL';
 export const ANKILAN_NOTE_CREATOR = '@ANKILAN_NOTE_CREATOR';
 export const ANKILAN_NOTE_TEMPLATE = '@ANKILAN_NOTE_TEMPLATE';
 export const ANKILAN_DATA = 'ANKILAN_DATA';
+
+//form actions
+export const SEND_FIELD = 'SEND_FIELD';
+//field names
+
+export const SOUND = 'SOUND';
+export const EXAMPLES = 'EXAMPLES';
+export const PRONUNCIATION = 'PRONUNCIATION';
+export const DEF_LIST1 = 'DEF_LIST1';
+export const DEF_LIST2 = 'DEF_LIST2';
+export const WORD = 'WORD'

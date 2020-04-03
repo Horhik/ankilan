@@ -10,17 +10,32 @@ import FieldEditor from './field-editor';
  * labelNum // Translate 1 / Translate 2 ...
  * */
 const PickerList = props => {
-  const [data, setData] = useState({translates: [], definitions: []});
+  const [data, setData] = useState(props.data[props.id]);
   useEffect(() => {
-    console.log('PROPPPPS', props);
+    setData(props.data[props.id]);
+      console.log(`
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      `,props.data[props.id]);
+  }, [props]);
+  useEffect(() => {
+      console.log('data', props.data[props.id]);
   });
-  const setId = id => {
-    console.log(id);
-  };
   const selectDef = id => {
-    console.log(props.data[id])
-    setData(props.data[id])
-  }
+    setData(props.data[id]);
+  };
   return (
     <View>
       <PosPicker
@@ -28,8 +43,12 @@ const PickerList = props => {
         onSelect={id => selectDef(id)}
         // getId={id => setId(id)}
       />
-      <FieldEditor data={{label:`Translate ${props.labelNum}`, values: data.translates}}/>
-      <FieldEditor data={{label: `Definition ${props.labelNum}`, values: data.definitions}}/>
+      <FieldEditor
+        data={{label: `Translate ${props.labelNum}`, values: data.translates}}
+      />
+      <FieldEditor
+        data={{label: `Definition ${props.labelNum}`, values: data.definitions}}
+      />
     </View>
   );
 };
