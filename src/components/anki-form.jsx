@@ -4,9 +4,10 @@ import DeckPicker from './view/deck-picker';
 import {Form, Container, Item} from 'native-base';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
 import InputWord from './view/translatable-word';
-import SubmitButton from './view/submit-button';
+import SubmitButton from './Form/submit-button';
 import {wordInfo} from '../actions/api/dictionary';
-import FieldEditor from './view/field-editor';
+import FieldEditor from './Form/field-editor';
+import FieldList from './Form/field-list';
 
 const AnkiForm = props => {
 	const [target, setTarget] = useState('');
@@ -35,12 +36,13 @@ const AnkiForm = props => {
 				<DeckPicker />
 				<InputWord word={getWord} onSubmit={submit} />
 				{submitted ? (
-					<FieldEditor
-						data={{
-							type: 'part of speech',
-							values: ['1', '2', '3','5',],
-						}}
-					/>
+					// <FieldEditor
+					// 	data={{
+					// 		type: 'part of speech',
+					// 		values: ['1', '2', '3','5',],
+					// 	}}
+					// />
+                    <FieldList/>
 				) : (
 					<SubmitButton onSubmit={submit} />
 				)}

@@ -4,7 +4,7 @@ import TextField from 'react-native-material-textfield/src/components/field';
 import {StyleSheet, TextInput} from 'react-native';
 import {View, Text, Button, Picker} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import IconedButton from './iconed-button.jsx';
+import IconedButton from '../view/iconed-button.jsx';
 const FieldEditor = props => {
   const [data, setData] = useState({});
   const [editing, setEditing] = useState(true);
@@ -14,6 +14,7 @@ const FieldEditor = props => {
   const input = useRef();
   useEffect(() => {
     setData(props.data);
+    console.log(props.data)
   }, []);
 
   const selectValue = value => {
@@ -85,7 +86,7 @@ const FieldEditor = props => {
               <Picker
                 selectedValue={selectedValue}
                 onValueChange={value => selectValue(value)}>
-                {data.values.map((value, id) => {
+                {props.data.values.map((value, id) => {
                   return <Picker.Item value={value} label={value} key={id} />;
                 })}
               </Picker>

@@ -9,5 +9,5 @@ export const createDictionary = async apiRes => {
 
   const compounded = await compoundWithYDictionary(parsedDictionary, word);
   //TODO add shrinkToOneExample(compounded)
-  return {...compounded, sound: audio};
+  return {...compounded, sound: audio, examples: parsedDictionary.examples};
 };

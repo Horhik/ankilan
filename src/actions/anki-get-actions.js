@@ -140,5 +140,5 @@ const setSavedData = data => ({
 
 export const getSavedData = () => async dispatch => {
   const data = await getAnkiData();
-  setSavedData(data);
+  await dispatch(setSavedData(data));
 };

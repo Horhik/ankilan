@@ -1,4 +1,5 @@
 import yDictionary from '../api/yandex-dictionary';
+import {parseDictionary} from './parsing-dictionary';
 
 const selectByPos = wordArray => {
   let posSet = new Set();
@@ -50,7 +51,6 @@ export const compoundWithYDictionary = async (definitionList, word) => {
       word,
       pronunciation: `/${definitionList.pronunciation}/`,
       compounded,
-      examples: words.examples,
     };
   } catch (e) {
     console.log('error is HERE', e);
