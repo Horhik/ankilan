@@ -17,7 +17,7 @@
         "native-base": "^2.13.8",
         "node-fetch": "^2.6.0",
         "react": "16.11.0",
-        "react-native": "0.62.1",
+        "react-native": "^0.61.5",
         "react-native-ankidroid": "^0.4.0",
         "react-native-eject": "^0.1.2",
         "react-native-material-textfield": "^0.16.1",
