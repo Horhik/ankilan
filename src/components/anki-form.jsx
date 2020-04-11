@@ -5,15 +5,18 @@ import {Form, Container, Item} from 'native-base';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
 import InputWord from './view/translatable-word';
 import SubmitButton from './Form/submit-button';
-import {ScrollView} from 'react-native'
+import {ScrollView} from 'react-native';
 import {wordInfo} from '../actions/api/dictionary';
 import FieldEditor from './Form/field-editor';
 import FieldList from './Form/field-list';
+import {WORD} from "../constants/anki-constants";
+import {sendField} from "../actions/form-actions";
 
 const AnkiForm = props => {
   const [target, setTarget] = useState('');
   const [fields, setFields] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     // props.wordInfo('Urge');
     //   props.wordInfo('Maze');
@@ -29,6 +32,11 @@ const AnkiForm = props => {
   const submit = () => {
     props.wordInfo(target);
     setSubmitted(true);
+      props.sendField({
+          text: target,
+          role: WORD
+      })
+    // console.log(props.available, props.data)
   };
 
   return (
@@ -36,11 +44,7 @@ const AnkiForm = props => {
       <Form>
         <DeckPicker />
         <InputWord word={getWord} onSubmit={submit} />
-        {(submitted && props.available) ? (
-          <FieldList />
-        ) : (
-          <SubmitButton onSubmit={submit} />
-        )}
+        {submitted ? <FieldList /> : <SubmitButton onSubmit={submit} />}
       </Form>
     </ScrollView>
   );
@@ -53,10 +57,12 @@ export default connect(
     modelList: state.anki.modelList,
     creator: state.anki.noteCreator,
     data: state,
-      available: state.api.apiIsLoaded,
+      word: state.api.availableApi.word,
+    available: state.api.apiIsLoaded,
   }),
   {
     checkAnkiLanModelForExisting,
     wordInfo,
+      sendField
   },
 )(AnkiForm);

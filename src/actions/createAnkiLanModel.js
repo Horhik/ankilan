@@ -38,11 +38,14 @@ export const createAnkiLanModel = model => async dispatch => {
     await console.log(modelId);
     const [, fieldList] = await AnkiDroid.getFieldList(model.name);
 
-    sendDataToLocaleStorage({
+    console.log(fieldList, modelId);
+
+    await sendDataToLocaleStorage({
       fieldList,
       modelName: model.name,
       modelId,
     });
+    console.log(await getAnkiData());
   } catch (err) {
     console.log('irror is ghere', err);
   }
@@ -52,15 +55,20 @@ const firstNote = (creator, fields, template) =>
   creator.addNote(fields, template);
 //creator is an object what have to store in locale storage.
 export const addNote = async words => {
-  const template = store.getState().anki.noteTemplate;
+  const ankiData = await getAnkiData();
+  await console.log(ankiData);
+  const template = await ankiData.fieldList;
   const deckId = store.getState().anki.selectedDeck.id;
-  const modelId = await getAnkiData().modelId;
+  const modelId = await ankiData.modelId;
+  console.log(template, deckId, modelId);
   const settings = {
     deckId,
     modelId,
   };
   const creator = new AnkiDroid(settings);
 
+  console.log(template);
+  console.log(words);
   creator.addNote(words, template);
   alert('sucssess');
 };

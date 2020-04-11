@@ -28,7 +28,7 @@ const initialState = {
   mainFieldIsAvailable: false,
   fieldList: [],
   ankiLanModelIsAlreadyExists: false,
-  ankiLanModelName: 'develop_final',
+  ankiLanModelName: 'develop_final_maybe_maybe_maybe',
   noteCreator: {},
   noteTemplate: [],
   currentFields: {
@@ -93,11 +93,13 @@ const ankiReducer = (state = initialState, action) => {
           };
         }
         case DEF_LIST1: {
+          console.log(action.payload);
+          console.log(action.role);
           return {
             ...state,
             currentFields: {
               ...state.currentFields,
-              compounded: [action.payload, state.compounded[1]],
+              compounded: [action.payload, state.currentFields.compounded[1]],
             },
           };
         }
@@ -106,11 +108,12 @@ const ankiReducer = (state = initialState, action) => {
             ...state,
             currentFields: {
               ...state.currentFields,
-              compounded: [, state.compounded[0], action.payload],
+              compounded: [state.currentFields.compounded[0], action.payload],
             },
           };
         }
         case WORD: {
+          alert(action.payload);
           return {
             ...state,
             currentFields: {...state.currentFields, word: action.payload},

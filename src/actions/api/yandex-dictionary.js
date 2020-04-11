@@ -14,7 +14,7 @@ const yDictionary = async (
     );
     const json = await res.json();
     // console.log('JSON', json);
-    return parseResponse(json.def)
+    return parseResponse(json.def);
   } catch (e) {
     console.log('err in yandex-dictionary.js: ', e);
   }

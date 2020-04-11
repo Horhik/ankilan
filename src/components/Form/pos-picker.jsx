@@ -22,8 +22,9 @@ const PosPicker = props => {
             label: `Part of speech ${props.labelNum} `,
             values: poses,
           }}
+          id={props.defaultId}
           type={POS_PICKER}
-          onSelect={(value) => props.onSelect(value)}
+          hasChanged={value => props.onSelect(value)}
         />
       ) : (
         <View />

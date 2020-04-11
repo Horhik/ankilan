@@ -19,6 +19,7 @@ export const SET_ANKI_NOTE_CREATOR = 'SET_ANKI_NOTE_CREATOR';
 export const SET_CREATOR_TEMPLATE = 'SET_CREATOR_TEMPLATE';
 export const SET_FIELDS = 'SET_FIELDS';
 export const SET_ANKI_DATA = 'SET_ANKI_DATA';
+export const SET_GLOBAL_DEF = 'SET_GLOBAL_DEF';
 //Anki ui actions
 export const SHOW_FIELDS = 'SHOW_FIELDS';
 // Anki check actions
@@ -38,4 +39,4 @@ export const EXAMPLES = 'EXAMPLES';
 export const PRONUNCIATION = 'PRONUNCIATION';
 export const DEF_LIST1 = 'DEF_LIST1';
 export const DEF_LIST2 = 'DEF_LIST2';
-export const WORD = 'WORD'
+export const WORD = 'WORD';

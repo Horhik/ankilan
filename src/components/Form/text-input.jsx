@@ -3,27 +3,20 @@ import {connect} from 'react-redux';
 import {TextField} from 'react-native-material-textfield';
 import {View} from 'native-base';
 import {sendField} from '../../actions/form-actions';
+import FieldEditor from './field-editor';
 
 const TextInput = props => {
-  const input = useRef();
-  const [text, setText] = useState(props.value);
   useEffect(() => {
-    setText(props.value);
-    input.current.setValue(props.value);
-  }, [props, props.value]);
-  const typing = text => {
-      setText(text)
-      props.sendField({text, role: props.role})
-  }
+    // console.log(props.value)
+  });
   return (
-    <View >
-      <TextField
-        value={props.value}
-        label={props.label}
-        editable={true}
-        onChangeText={text => typing(text) }
-        ref={input}
-        lineType={'none'}
+    <View>
+      <FieldEditor
+        hasChanged={c => true}
+        data={{
+          values: [props.value],
+          label: props.label,
+        }}
       />
       <View
         style={{
@@ -35,6 +28,9 @@ const TextInput = props => {
     </View>
   );
 };
-export default connect(null, {
-    sendField
-})(TextInput);
+export default connect(
+  null,
+  {
+    sendField,
+  },
+)(TextInput);

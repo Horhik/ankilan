@@ -1,6 +1,7 @@
 import {search} from 'urban-dictionary-client';
 import {
   SET_AVAILABLE_API,
+  SET_LOADING_STATE,
   SET_PARSED_DICTIONARY,
   URBAN_DICTIONARY_API,
   WORDS_API,
@@ -35,6 +36,10 @@ const setDictioanry = dictioanry => ({
   type: SET_PARSED_DICTIONARY,
   payload: dictioanry,
 });
+const setLoadingState = status => ({
+  type: SET_LOADING_STATE,
+  payload: status,
+});
 
 export const wordInfo = word => async dispatch => {
   try {
@@ -49,6 +54,7 @@ export const wordInfo = word => async dispatch => {
      }
   */
     //function which return universal template for more simple interaction with api
+    dispatch(setLoadingState(false));
     //TODO available dictionary instead api1
     await dispatch(setAvailableApi(api1));
     const wordDictionary = await createDictionary(api1);

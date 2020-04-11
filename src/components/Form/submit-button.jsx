@@ -9,5 +9,4 @@ const SubmitButton = props => {
     </Button>
   );
 };
-export default SubmitButton
-
+export default SubmitButton;

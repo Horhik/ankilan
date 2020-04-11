@@ -12,13 +12,17 @@ import {
   DEF_LIST2,
   EXAMPLES,
   PRONUNCIATION,
-  SOUND,
+  SOUND, WORD,
 } from '../../constants/anki-constants';
+import {sendField} from '../../actions/form-actions';
+import {addNote} from "../../actions/createAnkiLanModel";
 
 const FieldList = props => {
-  const [pronunciation, setPronunciation] = useState();
+  const [pronunciation, setPronunciation] = useState(
+    props.response.pronunciation,
+  );
   const [sound, setSound] = useState();
-  const [examples, setExamples] = useState(props.response.examples);
+  const [examples, setExamples] = useState();
   const [completedFields, setCompletedFields] = useState({
     word: props.word,
     compounded: [{pos: '', tr: '', definition: ''}, {}],
@@ -27,42 +31,98 @@ const FieldList = props => {
     sound: '',
   });
   useEffect(() => {
+    if (
+      props.response.sound &&
+      props.response.pronunciation &&
+      props.response.compounded &&
+      props.response.examples
+    ) {
+      // console.log("LOOOADED")
+    } else {
+    }
+  });
+  useEffect(() => {
     setSound(props.response.sound);
     setPronunciation(props.response.pronunciation);
     setExamples(props.response.examples);
   }, [props]);
+  const [loadingState, setLoadingState] = useState(false);
   useEffect(() => {
-    console.group('STATE', examples, pronunciation, sound);
+    console.log('STATE', examples, pronunciation, sound);
+    if (examples && pronunciation && sound) {
+      setLoadingState(true);
+    } else {
+      setLoadingState(false);
+    }
   });
   const submit = () => {
-    setFields(completedFields);
+
+    props.setFields(props.fields);
   };
   return (
-    <ScrollView style={{height: '100%'}}>
-      <PickerList labelNum={1} id={0} role={DEF_LIST1} />
-      <PickerList labelNum={2} id={1} role={DEF_LIST2} />
-      <FieldEditor
-        role={EXAMPLES}
-        data={{
-          label: 'Usage example',
-          values: examples || ['can not find the example'],
-        }}
-      />
-      <TextInput value={sound} label={'Sound'} role={SOUND} />
-      <TextInput
-        value={pronunciation}
-        label={'Transcription'}
-        role={PRONUNCIATION}
-      />
-      <Button style={{marginTop: 10}} onPress={submit}>
-        <Text>Submit</Text>
-        <Icon name={'send'} />
-      </Button>
+    <ScrollView keyboardShouldPersistTaps={'handled'} style={{height: '100%'}}>
+      {loadingState && props.loadingState ? (
+        <View>
+          <PickerList labelNum={1} id={0} role={DEF_LIST1} />
+          {/*<PickerList labelNum={2} id={1} role={DEF_LIST2} />*/}
+          <PickerList
+            labelNum={2}
+            id={props.response.compounded.length >= 2 ? 1 : 0}
+            role={DEF_LIST2}
+          />
+          <FieldEditor
+            hasChanged={c =>
+              props.sendField({
+                text: c,
+                role: EXAMPLES,
+              })
+            }
+            role={EXAMPLES}
+            data={{
+              label: 'Usage example',
+              values: examples || ['can not find the example'],
+            }}
+          />
+          <FieldEditor
+            hasChanged={c =>
+              props.sendField({
+                text: c,
+                role: SOUND,
+              })
+            }
+            data={{values: [sound], label: 'Sound'}}
+            role={SOUND}
+          />
+          <FieldEditor
+            hasChanged={c =>
+              props.sendField({
+                text: c,
+                role: PRONUNCIATION,
+              })
+            }
+            role={PRONUNCIATION}
+            data={{values: [pronunciation], label: 'Pronunciation'}}
+          />
+          <Button style={{marginTop: 10}} onPress={submit}>
+            <Text>Submit</Text>
+            <Icon name={'send'} />
+          </Button>
+        </View>
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </ScrollView>
   );
 };
-
-export default connect(state => ({
-  response: state.api.parsedDictionary,
-  word: state.api.word,
-}))(FieldList);
+export default connect(
+  state => ({
+    response: state.api.parsedDictionary,
+    word: state.api.availableApi.word,
+    loadingState: state.api.apiIsLoaded,
+    fields: state.anki.currentFields
+  }),
+  {
+    sendField,
+    setFields
+  },
+)(FieldList);

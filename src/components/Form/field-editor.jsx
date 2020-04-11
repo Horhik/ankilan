@@ -1,56 +1,76 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {connect} from 'react-redux';
+import React, {useEffect, useState} from 'react';
 import TextField from 'react-native-material-textfield/src/components/field';
-import {StyleSheet, TextInput} from 'react-native';
-import {View, Text, Button, Picker} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {ScrollView, StyleSheet} from 'react-native';
+import {Picker, Text, View} from 'native-base';
 import IconedButton from '../view/iconed-button.jsx';
 import {POS_PICKER} from '../../constants/component-types';
-const FieldEditor = props => {
-  const [data, setData] = useState(props.data);
-  const [values, setValues] = useState(props.data.values);
-  const [editing, setEditing] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(props.data.values[0]);
-  const [userText, setUserText] = useState('');
-  const input = useRef();
-  const [finalText, setFinalText] = useState(props.data.values[0]);
-  useEffect(() => {
-    setData(props.data);
-    setValues(props.data.values)
-  }, [props]);
+import set from '@babel/runtime/helpers/esm/set';
 
-  const selectValue = selected => {
-    setSelectedValue(selected);
+const FieldEditor = props => {
+  const label = props.data.label;
+  const constantValues = props.pos | '';
+  const [values, setValues] = useState(props.data.values);
+  const [editingValue, setEditingValue] = useState(
+    props.data.values[props.id] || props.data.values[0],
+  );
+  const [selectedValue, setSelectedValue] = useState(
+    props.data.values[props.id] || props.data.values[0],
+  );
+  const [finiteValue, setFiniteValue] = useState(
+    props.data.values[props.id] || props.data.values[0],
+  );
+  const [editing, isEditing] = useState(false);
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+
+  const select = value => {
+    setSelectedValue(value);
+    setFiniteValue(value);
+    setEditingValue(value);
+  };
+
+  const typing = text => {
+    setEditingValue(text);
+  };
+
+  const setTyped = () => {
+    let valuesSet = new Set(values);
+    valuesSet.add(editingValue);
+    const valuesArray = Array.from(valuesSet).slice();
+    setValues(valuesArray);
+    isEditing(!editing);
+    if (selectedValue !== editingValue) {
+      select(valuesArray[valuesArray.length - 1]);
+    }
+  };
+
+  useEffect(() => {
     if (props.type === POS_PICKER) {
       values.forEach((value, id) => {
-        if (value === selected) props.onSelect(id);
+        if (value === finiteValue) {
+          props.hasChanged(id);
+        }
       });
+    } else {
+      props.hasChanged(finiteValue);
     }
-  };
-  const typing = text => {
-    setUserText(text);
-  };
-  const select = value => {
-    setFinalText(value);
-    setUserText(value);
-    selectValue(value);
-  };
-  const confirmTyped = () => {
-    let newValues = new Set(values);
-    newValues.add(userText);
-    setValues(Array.from(newValues));
-    setData({...data, values: [...values, userText]});
-    console.log(values);
-  };
-
+  }, [finiteValue]);
   useEffect(() => {
-    if (props.data.values !== values) {
-      setSelectedValue(values[values.length - 1]);
-    }
-  }, [values]);
+    setValues(props.data.values);
+    setSelectedValue(props.data.values[0]);
+    console.log('EXECUTIN');
+  }, [constantValues]);
 
-  useEffect(() => {
-  });
+  // useEffect(() => {
+  //
+  //   if(props.type !== POS_PICKER){
+  //     if(constantValues !== props.data.values){
+  //       console.log("EXECUTIN")
+  //     }
+  //   }
+  // }, [constantValues, props.data.values])
+
   const styles = StyleSheet.create({
     wrapper: {},
     inner: {
@@ -89,53 +109,74 @@ const FieldEditor = props => {
   });
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.inner}>
-        <View style={styles.tfWrapper}>
-          {editing ? (
-            <TextField
-              lineType={'none'}
-              multiline={true}
-              label={props.data.label}
-              value={userText}
-              editable={true}
-              ref={input}
-              onChangeText={text => typing(text)}
-            />
-          ) : (
-            <View>
-              <Text style={styles.pickerLabel}>{props.data.label}</Text>
-              <Picker
-                selectedValue={selectedValue}
-                onValueChange={value => select(value)}>
-                {values.map((value, id) => {
-                  return <Picker.Item value={value} label={value} key={id} />;
-                })}
-              </Picker>
-            </View>
-          )}
+    <ScrollView keyboardShouldPersistTaps={'handled'}>
+      {props.type === POS_PICKER ? (
+        <View>
+          <Text style={styles.pickerLabel}>{props.data.label}</Text>
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={value => select(value)}>
+            {values.map((value, id) => {
+              return <Picker.Item value={value} label={value} key={id} />;
+            })}
+          </Picker>
         </View>
-        {editing ? (
-          <View style={styles.row}>
-            <IconedButton
-              icon="caret-down"
-              onPress={() => {
-                setEditing(!editing);
-              }}
-            />
-            <IconedButton icon="check" onPress={confirmTyped} />
+      ) : (
+        <View style={styles.wrapper}>
+          <View style={styles.inner}>
+            <View style={styles.tfWrapper}>
+              {editing ? (
+                <View>
+                  <TextField
+                    lineType={'none'}
+                    multiline={true}
+                    label={label}
+                    value={editingValue}
+                    editable={true}
+                    onChangeText={text => typing(text)}
+                    autoFocus={true}
+                  />
+                  <View style={styles.hr} />
+                </View>
+              ) : (
+                <View>
+                  <Text style={styles.pickerLabel}>{props.data.label}</Text>
+                  <Picker
+                    selectedValue={selectedValue}
+                    onValueChange={value => select(value)}>
+                    {values.map((value, id) => {
+                      return (
+                        <Picker.Item value={value} label={value} key={id} />
+                      );
+                    })}
+                  </Picker>
+                </View>
+              )}
+            </View>
+            {editing ? (
+              <View style={styles.row}>
+                <IconedButton icon="check" onPress={setTyped} />
+                <IconedButton
+                  icon="caret-down"
+                  onPress={() => {
+                    isEditing(!editing);
+                    setEditingValue(selectedValue);
+                  }}
+                />
+              </View>
+            ) : (
+              <IconedButton
+                icon="pen"
+                onPress={() => {
+                  isEditing(!editing);
+                }}
+              />
+            )}
           </View>
-        ) : (
-          <IconedButton
-            icon="pen"
-            onPress={() => {
-              setEditing(!editing);
-            }}
-          />
-        )}
-      </View>
-      <View style={styles.hr} />
-    </View>
+          <View style={styles.hr} />
+        </View>
+      )}
+    </ScrollView>
   );
 };
-export default connect()(FieldEditor);
+export default FieldEditor;
