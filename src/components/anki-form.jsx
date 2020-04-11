@@ -4,11 +4,19 @@ import DeckPicker from './view/deck-picker';
 import {Form, Container, Item} from 'native-base';
 import {checkAnkiLanModelForExisting} from '../actions/anki-get-actions';
 import InputWord from './view/translatable-word';
-import SubmitButton from './view/submit-button';
-import {wordInfo} from "../actions/api/dictionary";
+import SubmitButton from './Form/submit-button';
+import {ScrollView} from 'react-native';
+import {wordInfo} from '../actions/api/dictionary';
+import FieldEditor from './Form/field-editor';
+import FieldList from './Form/field-list';
+import {WORD} from "../constants/anki-constants";
+import {sendField} from "../actions/form-actions";
 
 const AnkiForm = props => {
-    const [target, setTarget] = useState('')
+  const [target, setTarget] = useState('');
+  const [fields, setFields] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     // props.wordInfo('Urge');
     //   props.wordInfo('Maze');
@@ -17,23 +25,28 @@ const AnkiForm = props => {
     //   props.wordInfo('Entrepreneurship');
     //   props.wordInfo('meagre');
     //   props.wordInfo('meager');
-
   }, []);
-  const getWord = (word) => {
-      setTarget(word)
+  const getWord = word => {
+    setTarget(word);
   };
   const submit = () => {
-      props.wordInfo(target);
+    props.wordInfo(target);
+    setSubmitted(true);
+      props.sendField({
+          text: target,
+          role: WORD
+      })
+    // console.log(props.available, props.data)
   };
 
   return (
-    <Container style={{padding: 20}}>
-      <Form >
+    <ScrollView style={{padding: 20}}>
+      <Form>
         <DeckPicker />
-        <InputWord word={getWord} onSubmit={submit}/>
-        <SubmitButton onSubmit={submit} />
+        <InputWord word={getWord} onSubmit={submit} />
+        {submitted ? <FieldList /> : <SubmitButton onSubmit={submit} />}
       </Form>
-    </Container>
+    </ScrollView>
   );
 };
 
@@ -43,10 +56,13 @@ export default connect(
     modelName: state.anki.ankiLanModelName,
     modelList: state.anki.modelList,
     creator: state.anki.noteCreator,
+    data: state,
+      word: state.api.availableApi.word,
+    available: state.api.apiIsLoaded,
   }),
   {
     checkAnkiLanModelForExisting,
-      wordInfo
-
+    wordInfo,
+      sendField
   },
 )(AnkiForm);

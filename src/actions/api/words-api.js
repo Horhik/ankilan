@@ -17,35 +17,37 @@ export async function getResFromWordsAPI(word) {
   return Promise.resolve(res);
 }
 
-const parsePOS = wordArray => {
-  let posSet = new Set();
-  let posArray = [];
-  wordArray.forEach((result, id) => {
-    const pos = result.partOfSpeech;
-    if (!posSet.has(pos)) {
-      posSet.add(pos);
-      posArray.push({pos, id});
-    }
-  });
-  return posArray;
-};
 //get all what anki template need for template
 const getDefinitionList = wordsArray => {
-  const partOfSpeeches = parsePOS(wordsArray);
   let definitionList = [];
-  partOfSpeeches.forEach(pos => {
-    const currentWord = wordsArray[pos.id];
-    definitionList.push({
-      definition: currentWord.definition,
-      example: currentWord.examples ? currentWord.examples[0] : undefined,
-      id: pos.id,
-      pos: pos.pos,
-    });
+  /*partOfSpeeches*/
+  let posSet = new Set();
+  let examples = [];
+  wordsArray.forEach(words => {
+    posSet.add(words.partOfSpeech);
+    if (words.examples) {
+      examples.push(...words.examples);
+    }
   });
-  return definitionList;
+
+  posSet.forEach(pos => {
+    let defArray = [];
+    wordsArray.forEach(words => {
+      if (pos === words.partOfSpeech) {
+        defArray.push(words.definition);
+      }
+    });
+    definitionList.push({pos, definitions: defArray});
+  });
+  return {examples, definitions: definitionList};
 };
 
-export const parseWordsApi = api => ({
-  pronunciation: api.pronunciation.all,
-  words: api.results ? getDefinitionList(api.results) : [],
-});
+export const parseWordsApi = api => {
+  const words = getDefinitionList(api.results).definitions;
+  const examples = getDefinitionList(api.results).examples;
+  return {
+    pronunciation: api.pronunciation.all,
+    words: api.results ? words : [],
+    examples,
+  };
+};

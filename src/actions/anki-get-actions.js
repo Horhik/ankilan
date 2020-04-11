@@ -6,10 +6,12 @@ import {
   GET_FIELD_LIST,
   GET_MODEL_LIST,
   REQUEST_PERMISSIONS,
+  SET_ANKI_DATA,
   SET_EXISTING_OF_ANKI_LAN_MODEL,
   SET_FIELD_LIST,
 } from '../constants/anki-constants';
 import {createAnkiLanModel} from './createAnkiLanModel';
+import {getAnkiData} from './filesystem';
 
 /*Permissions*/
 
@@ -22,7 +24,6 @@ export const requestAnkiPermission = () => async dispatch => {
   try {
     const [err, res] = await AnkiDroid.requestPermission();
     if (err) throw err;
-    console.log(res);
     await dispatch(setRequestAnkiPermissions(err, res));
     return res;
   } catch (err) {
@@ -105,8 +106,10 @@ export const checkAnkiLanModelForExisting = (
   modelList,
 ) => async dispatch => {
   try {
+    let id = 0;
     for (let model of modelList) {
       if (model.name === name) {
+        id = model.id;
         await dispatch(setExistingOfAnkiLanModel(true));
         return true;
       }
@@ -117,4 +120,25 @@ export const checkAnkiLanModelForExisting = (
     console.log(err);
     await dispatch(setExistingOfAnkiLanModel(false));
   }
+};
+
+export const getModelId = (models, name) => {
+  let id;
+  models.forEach(model => {
+    if (model.name === name) {
+      id = model.id;
+      return id;
+    }
+  });
+  return id;
+};
+
+const setSavedData = data => ({
+  type: SET_ANKI_DATA,
+  payload: data,
+});
+
+export const getSavedData = () => async dispatch => {
+  const data = await getAnkiData();
+  await dispatch(setSavedData(data));
 };

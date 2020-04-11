@@ -3,6 +3,7 @@ import {
   SET_CREATOR_TEMPLATE,
   SET_DECK,
   SET_FIELDS,
+  SET_GLOBAL_DEF,
 } from '../constants/anki-constants';
 
 export const selectDeck = id => ({
@@ -21,6 +22,7 @@ export const setCreatorTemplate = template => ({
 });
 
 const parseToAnkiFormat = dict => {
+  console.log('SDFfasdfsadf', dict);
   /*
 *** TEMPLATE ***
 const modelFields = [
@@ -40,14 +42,15 @@ const modelFields = [
   const tr1 = dict.compounded[0];
   const tr2 = dict.compounded[1] || {};
   return [
-    dict.word,
-    tr1.pos,
-    tr1.tr,
-    tr1.definition,
+    dict.word || '',
+    tr1.pos || '',
+    tr1.tr || '',
+    tr1.definition || '',
     tr2.pos || '',
     tr2.tr || '',
     tr2.definition || '',
-    `${tr1.example || ''} \n ${tr2.example || ''}`,
+    // `${tr1.example || ''} \n ${tr2.example || ''}`,
+    dict.example,
     dict.pronunciation,
     `[sound:${dict.sound}]`,
   ];

@@ -7,18 +7,24 @@ import DeckPicker from './view/deck-picker';
 import AddWordForm from './anki-form';
 import AnkiTemplate from './view/add-main-template';
 import {Grid, Row} from 'native-base';
-import {checkAnkiLanModelForExisting, getDeckList, getModelList} from '../actions/anki-get-actions';
+import {
+  checkAnkiLanModelForExisting,
+  getDeckList,
+  getModelList,
+  getSavedData,
+} from '../actions/anki-get-actions';
 
 const StartScreen = props => {
-    useEffect(() => {
-        props.getDeckList();
-        props.getModelList();
-    }, [])
+  useEffect(() => {
+    props.getDeckList();
+    props.getModelList();
+    props.getSavedData();
+  }, []);
   useEffect(() => {
     props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
   });
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       {props.ankiAvailable ? (
         props.ankiLanModelExists ? (
           <AddWordForm />
@@ -42,6 +48,8 @@ export default connect(
   }),
   {
     checkAnkiLanModelForExisting,
-        getDeckList,
-      getModelList
-  })(StartScreen);
+    getDeckList,
+    getModelList,
+    getSavedData,
+  },
+)(StartScreen);

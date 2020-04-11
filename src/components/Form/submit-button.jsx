@@ -5,9 +5,8 @@ import {Button, Text} from 'native-base';
 const SubmitButton = props => {
   return (
     <Button onPress={props.onSubmit}>
-      <Text>Submit</Text>
+      <Text>Send</Text>
     </Button>
   );
 };
-export default SubmitButton
-
+export default SubmitButton;
