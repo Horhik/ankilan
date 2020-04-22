@@ -35,6 +35,7 @@ const apiReducer = (state = initialState, action) => {
         availableApiName: action.payload.source,
       };
     case SET_PARSED_DICTIONARY:
+      console.log("HEEERWELFDSKFj")
       return {
         ...state,
         parsedDictionary: action.payload,

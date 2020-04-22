@@ -113,7 +113,6 @@ const ankiReducer = (state = initialState, action) => {
           };
         }
         case WORD: {
-          alert(action.payload);
           return {
             ...state,
             currentFields: {...state.currentFields, word: action.payload},

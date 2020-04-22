@@ -11,6 +11,7 @@ import FieldEditor from './Form/field-editor';
 import FieldList from './Form/field-list';
 import {WORD} from "../constants/anki-constants";
 import {sendField} from "../actions/form-actions";
+import {setLoadingState} from "../actions/api/dictionary";
 
 const AnkiForm = props => {
   const [target, setTarget] = useState('');
@@ -30,8 +31,9 @@ const AnkiForm = props => {
     setTarget(word);
   };
   const submit = () => {
+    props.setLoadingState(false);
     props.wordInfo(target);
-    setSubmitted(true);
+    setSubmitted(props.available)
       props.sendField({
           text: target,
           role: WORD
@@ -59,10 +61,13 @@ export default connect(
     data: state,
       word: state.api.availableApi.word,
     available: state.api.apiIsLoaded,
+
   }),
   {
     checkAnkiLanModelForExisting,
     wordInfo,
-      sendField
+      sendField,
+      setLoadingState,
+
   },
 )(AnkiForm);
