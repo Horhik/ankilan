@@ -1,1 +1,1 @@
-export const POS_PICKER = 'POS_PICKER'
+export const POS_PICKER = 'POS_PICKER';

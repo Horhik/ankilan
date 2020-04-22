@@ -35,13 +35,17 @@ const FieldEditor = props => {
   };
 
   const setTyped = () => {
-    let valuesSet = new Set(values);
-    valuesSet.add(editingValue);
-    const valuesArray = Array.from(valuesSet).slice();
-    setValues(valuesArray);
-    isEditing(!editing);
-    if (selectedValue !== editingValue) {
-      select(valuesArray[valuesArray.length - 1]);
+    try {
+      let valuesSet = new Set(values);
+      valuesSet.add(editingValue);
+      const valuesArray = Array.from(valuesSet).slice();
+      setValues(valuesArray);
+      isEditing(!editing);
+      if (selectedValue !== editingValue) {
+        select(valuesArray[valuesArray.length - 1]);
+      }
+    } catch (e) {
+      console.log('error in field-editor.jsx', e);
     }
   };
 

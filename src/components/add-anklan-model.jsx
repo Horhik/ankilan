@@ -13,12 +13,19 @@ import {
   getModelList,
   getSavedData,
 } from '../actions/anki-get-actions';
+import {requestAnkiPermission} from '../actions/anki-get-actions';
 
 const StartScreen = props => {
   useEffect(() => {
-    props.getDeckList();
-    props.getModelList();
-    props.getSavedData();
+    if (props.ankiAvailable) {
+      props.getDeckList();
+      props.getModelList();
+      props.getSavedData();
+      props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
+    } else {
+      alert('Troubles');
+      props.requestAnkiPermission();
+    }
   }, []);
   useEffect(() => {
     props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
@@ -51,5 +58,6 @@ export default connect(
     getDeckList,
     getModelList,
     getSavedData,
+    requestAnkiPermission,
   },
 )(StartScreen);

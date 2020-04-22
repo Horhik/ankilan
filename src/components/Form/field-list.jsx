@@ -12,10 +12,11 @@ import {
   DEF_LIST2,
   EXAMPLES,
   PRONUNCIATION,
-  SOUND, WORD,
+  SOUND,
+  WORD,
 } from '../../constants/anki-constants';
 import {sendField} from '../../actions/form-actions';
-import {addNote} from "../../actions/createAnkiLanModel";
+import {addNote} from '../../actions/createAnkiLanModel';
 
 const FieldList = props => {
   const [pronunciation, setPronunciation] = useState(
@@ -55,10 +56,8 @@ const FieldList = props => {
       setLoadingState(false);
     }
   });
-  useEffect(() => {
-  }, [pronunciation])
+  useEffect(() => {}, [pronunciation]);
   const submit = () => {
-
     props.setFields(props.fields);
   };
   return (
@@ -103,7 +102,10 @@ const FieldList = props => {
               })
             }
             role={PRONUNCIATION}
-            data={{values: [props.response.pronunciation], label: 'Pronunciation'}}
+            data={{
+              values: [props.response.pronunciation],
+              label: 'Pronunciation',
+            }}
           />
           <Button style={{marginTop: 10}} onPress={submit}>
             <Text>Submit</Text>
@@ -121,10 +123,10 @@ export default connect(
     response: state.api.parsedDictionary,
     word: state.api.availableApi.word,
     loadingState: state.api.apiIsLoaded,
-    fields: state.anki.currentFields
+    fields: state.anki.currentFields,
   }),
   {
     sendField,
-    setFields
+    setFields,
   },
 )(FieldList);
