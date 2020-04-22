@@ -3,7 +3,8 @@ App which provide translating and adding words to anki
 
 - - -
  ![screenshot](./readme-files/screenshot1.png)
- 
+## Install
+You can download latest the release from [releases page](https://github.com/Horhik/ankilan/releases)
 ## Build and start
 ```bash
 git clone https://github.com/Horhik/ankilan
@@ -27,7 +28,7 @@ It's up to you 😜
 - [x] ~~Basic functional~~
 - [ ] Add Urban dictionary support
 - [ ] Support for other languages than Russian
-- [ ] Add fields editor
+- [ ] Add fields editor (without bugs 🙃)
 - [ ] Add dark theme
 - [ ] Create flexibility models
 - [ ] Download sound of word to filesystem
