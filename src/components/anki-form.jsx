@@ -9,8 +9,9 @@ import {ScrollView} from 'react-native';
 import {wordInfo} from '../actions/api/dictionary';
 import FieldEditor from './Form/field-editor';
 import FieldList from './Form/field-list';
-import {WORD} from "../constants/anki-constants";
-import {sendField} from "../actions/form-actions";
+import {WORD} from '../constants/anki-constants';
+import {sendField} from '../actions/form-actions';
+import {setLoadingState} from '../actions/api/dictionary';
 
 const AnkiForm = props => {
   const [target, setTarget] = useState('');
@@ -30,12 +31,13 @@ const AnkiForm = props => {
     setTarget(word);
   };
   const submit = () => {
+    props.setLoadingState(false);
     props.wordInfo(target);
-    setSubmitted(true);
-      props.sendField({
-          text: target,
-          role: WORD
-      })
+    setSubmitted(props.available);
+    props.sendField({
+      text: target,
+      role: WORD,
+    });
     // console.log(props.available, props.data)
   };
 
@@ -57,12 +59,13 @@ export default connect(
     modelList: state.anki.modelList,
     creator: state.anki.noteCreator,
     data: state,
-      word: state.api.availableApi.word,
+    word: state.api.availableApi.word,
     available: state.api.apiIsLoaded,
   }),
   {
     checkAnkiLanModelForExisting,
     wordInfo,
-      sendField
+    sendField,
+    setLoadingState,
   },
 )(AnkiForm);

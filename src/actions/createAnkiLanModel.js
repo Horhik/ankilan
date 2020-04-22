@@ -47,7 +47,7 @@ export const createAnkiLanModel = model => async dispatch => {
     });
     console.log(await getAnkiData());
   } catch (err) {
-    console.log('irror is ghere', err);
+    console.log('error in createAnkiLanModel.js', err);
   }
 };
 

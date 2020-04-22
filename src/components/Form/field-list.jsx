@@ -12,10 +12,11 @@ import {
   DEF_LIST2,
   EXAMPLES,
   PRONUNCIATION,
-  SOUND, WORD,
+  SOUND,
+  WORD,
 } from '../../constants/anki-constants';
 import {sendField} from '../../actions/form-actions';
-import {addNote} from "../../actions/createAnkiLanModel";
+import {addNote} from '../../actions/createAnkiLanModel';
 
 const FieldList = props => {
   const [pronunciation, setPronunciation] = useState(
@@ -55,8 +56,8 @@ const FieldList = props => {
       setLoadingState(false);
     }
   });
+  useEffect(() => {}, [pronunciation]);
   const submit = () => {
-
     props.setFields(props.fields);
   };
   return (
@@ -80,7 +81,7 @@ const FieldList = props => {
             role={EXAMPLES}
             data={{
               label: 'Usage example',
-              values: examples || ['can not find the example'],
+              values: props.response.examples || ['can not find the example'],
             }}
           />
           <FieldEditor
@@ -90,7 +91,7 @@ const FieldList = props => {
                 role: SOUND,
               })
             }
-            data={{values: [sound], label: 'Sound'}}
+            data={{values: [props.response.sound], label: 'Sound'}}
             role={SOUND}
           />
           <FieldEditor
@@ -101,7 +102,10 @@ const FieldList = props => {
               })
             }
             role={PRONUNCIATION}
-            data={{values: [pronunciation], label: 'Pronunciation'}}
+            data={{
+              values: [props.response.pronunciation],
+              label: 'Pronunciation',
+            }}
           />
           <Button style={{marginTop: 10}} onPress={submit}>
             <Text>Submit</Text>
@@ -119,10 +123,10 @@ export default connect(
     response: state.api.parsedDictionary,
     word: state.api.availableApi.word,
     loadingState: state.api.apiIsLoaded,
-    fields: state.anki.currentFields
+    fields: state.anki.currentFields,
   }),
   {
     sendField,
-    setFields
+    setFields,
   },
 )(FieldList);

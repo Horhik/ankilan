@@ -31,35 +31,33 @@ const PickerList = props => {
   };
 
   useEffect(() => {
-      props.sendField({
-          text: {
-              pos: pos,
-              tr: tr,
-              definition: def,
-          },
-          role: props.role,
-      });
-      props.sendField("HDFSL:FJL:SKDJF: SLDKJF:LSDJF:LSDKFJ SDF",
-          {
-              text: {
-                  pos: pos,
-                  tr: tr,
-                  definition: def,
-              },
-              role: props.role,
-          })
+    props.sendField({
+      text: {
+        pos: pos,
+        tr: tr,
+        definition: def,
+      },
+      role: props.role,
+    });
+    props.sendField('HDFSL:FJL:SKDJF: SLDKJF:LSDJF:LSDKFJ SDF', {
+      text: {
+        pos: pos,
+        tr: tr,
+        definition: def,
+      },
+      role: props.role,
+    });
   }, [tr, def, pos]);
 
   const updateData = c => {
-      console.log("HDFLSDKFJ SDF",
-          {
-              text: {
-                  pos: pos,
-                  tr: tr,
-                  definition: def,
-              },
-              role: props.role,
-          })
+    console.log('HDFLSDKFJ SDF', {
+      text: {
+        pos: pos,
+        tr: tr,
+        definition: def,
+      },
+      role: props.role,
+    });
   };
 
   return (
@@ -72,7 +70,7 @@ const PickerList = props => {
       <FieldEditor
         hasChanged={c => {
           setTr(c);
-          updateData(c );
+          updateData(c);
         }}
         pos={pos}
         data={{

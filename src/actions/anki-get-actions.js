@@ -35,6 +35,7 @@ export const checkAnkiAccess = async (
   ankiApiProvider = AnkiDroid.isApiAvailable,
 ) => {
   const [err, res] = await ankiApiProvider();
+  alert(res);
   return err ? {type: ERROR, err} : {type: CHECK_ANKI_ACCESS, payload: res};
 };
 
@@ -67,10 +68,12 @@ const setModelList = res => {
 export const getModelList = () => async dispatch => {
   try {
     const [err, res] = await AnkiDroid.getModelList();
+    console.log('RESRES', res);
     if (err) {
       throw err;
     }
     await dispatch(setModelList(res));
+
   } catch (err) {
     console.log(err);
   }
@@ -101,15 +104,13 @@ const setExistingOfAnkiLanModel = existing => {
     payload: existing,
   };
 };
-export const checkAnkiLanModelForExisting = (
-  name,
-  modelList,
-) => async dispatch => {
+export const checkAnkiLanModelForExisting = name => async dispatch => {
+  setTimeout( async () => {
   try {
-    let id = 0;
+    const [error, modelList] = await AnkiDroid.getModelList()
+    console.log('CECKCKC', name, modelList);
     for (let model of modelList) {
       if (model.name === name) {
-        id = model.id;
         await dispatch(setExistingOfAnkiLanModel(true));
         return true;
       }
@@ -120,6 +121,7 @@ export const checkAnkiLanModelForExisting = (
     console.log(err);
     await dispatch(setExistingOfAnkiLanModel(false));
   }
+  }, 2000)
 };
 
 export const getModelId = (models, name) => {
