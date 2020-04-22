@@ -1,5 +1,6 @@
 # AnkiLan
 App provide creating automatically fill fields with English words and their definitions, examples, translates and add it to Anki.
+
 App required already installed [Anki](https://apps.ankiweb.net/) on your phone.  
 
 - - -
