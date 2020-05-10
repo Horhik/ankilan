@@ -23,7 +23,7 @@ const StartScreen = props => {
       props.getSavedData();
       props.checkAnkiLanModelForExisting(props.modelName, props.modelList);
     } else {
-      alert('Troubles');
+      console.log('Troubles with permissions');
       props.requestAnkiPermission();
     }
   }, []);

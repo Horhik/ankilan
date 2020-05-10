@@ -58,7 +58,7 @@ export const addNote = async words => {
   const ankiData = await getAnkiData();
   await console.log(ankiData);
   const template = await ankiData.fieldList;
-  const deckId = store.getState().anki.selectedDeck.id;
+  const deckId = store.getState().anki.selectedDeck.deck.id;
   const modelId = await ankiData.modelId;
   console.log(template, deckId, modelId);
   const settings = {
