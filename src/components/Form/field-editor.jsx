@@ -6,7 +6,7 @@ import IconedButton from '../view/iconed-button.jsx';
 import {POS_PICKER} from '../../constants/component-types';
 import set from '@babel/runtime/helpers/esm/set';
 
-const FieldEditor = props => {
+const FieldEditor = (props) => {
   const label = props.data.label;
   const constantValues = props.pos | '';
   const [values, setValues] = useState(props.data.values);
@@ -24,19 +24,19 @@ const FieldEditor = props => {
   const [] = useState();
   const [] = useState();
 
-  const select = value => {
+  const select = (value) => {
     setSelectedValue(value);
     setFiniteValue(value);
     setEditingValue(value);
   };
 
-  const typing = text => {
+  const typing = (text) => {
     setEditingValue(text);
   };
 
   const setTyped = () => {
     try {
-      let valuesSet = new Set(values);
+      let valuesSet = new Set(props.data.values);
       valuesSet.add(editingValue);
       const valuesArray = Array.from(valuesSet).slice();
       setValues(valuesArray);
@@ -51,7 +51,7 @@ const FieldEditor = props => {
 
   useEffect(() => {
     if (props.type === POS_PICKER) {
-      values.forEach((value, id) => {
+      props.data.values.forEach((value, id) => {
         if (value === finiteValue) {
           props.hasChanged(id);
         }
@@ -62,7 +62,6 @@ const FieldEditor = props => {
   }, [finiteValue]);
   useEffect(() => {
     setValues(props.data.values);
-    setSelectedValue(props.data.values[0]);
     console.log('EXECUTIN');
   }, [constantValues]);
 
@@ -119,8 +118,8 @@ const FieldEditor = props => {
           <Text style={styles.pickerLabel}>{props.data.label}</Text>
           <Picker
             selectedValue={selectedValue}
-            onValueChange={value => select(value)}>
-            {values.map((value, id) => {
+            onValueChange={(value) => select(value)}>
+            {props.data.values.map((value, id) => {
               return <Picker.Item value={value} label={value} key={id} />;
             })}
           </Picker>
@@ -137,7 +136,7 @@ const FieldEditor = props => {
                     label={label}
                     value={editingValue}
                     editable={true}
-                    onChangeText={text => typing(text)}
+                    onChangeText={(text) => typing(text)}
                     autoFocus={true}
                   />
                   <View style={styles.hr} />
@@ -147,8 +146,8 @@ const FieldEditor = props => {
                   <Text style={styles.pickerLabel}>{props.data.label}</Text>
                   <Picker
                     selectedValue={selectedValue}
-                    onValueChange={value => select(value)}>
-                    {values.map((value, id) => {
+                    onValueChange={(value) => select(value)}>
+                    {props.data.values.map((value, id) => {
                       return (
                         <Picker.Item value={value} label={value} key={id} />
                       );

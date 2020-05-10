@@ -6,6 +6,7 @@ import {
   GET_MODEL_LIST,
   PRONUNCIATION,
   REQUEST_PERMISSIONS,
+  SELECT_POS_ID,
   SEND_FIELD,
   SET_ANKI_DATA,
   SET_ANKI_NOTE_CREATOR,
@@ -31,6 +32,8 @@ const initialState = {
   ankiLanModelName: 'develop_final_maybe_maybe_maybe',
   noteCreator: {},
   noteTemplate: [],
+  pos1id: 0,
+  pos2id: 0,
   currentFields: {
     word: '',
     compounded: [
@@ -68,6 +71,12 @@ const ankiReducer = (state = initialState, action) => {
         ...state,
         savedData: action.payload,
       };
+    case SELECT_POS_ID: {
+      console.log('click', action.id);
+      return action.id == 1
+        ? {...state, pos2id: action.payload}
+        : {...state, pos1id: action.payload};
+    }
     case SEND_FIELD: {
       const fields = state.currentFields;
       switch (action.role) {
@@ -120,6 +129,7 @@ const ankiReducer = (state = initialState, action) => {
         }
       }
     }
+
     default:
       return state;
   }

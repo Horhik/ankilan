@@ -32,6 +32,7 @@ export const ANKILAN_DATA = 'ANKILAN_DATA';
 
 //form actions
 export const SEND_FIELD = 'SEND_FIELD';
+export const SELECT_POS_ID = 'SELECT_POS_ID';
 //field names
 
 export const SOUND = 'SOUND';

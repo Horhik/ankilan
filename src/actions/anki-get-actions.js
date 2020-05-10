@@ -68,12 +68,10 @@ const setModelList = res => {
 export const getModelList = () => async dispatch => {
   try {
     const [err, res] = await AnkiDroid.getModelList();
-    console.log('RESRES', res);
     if (err) {
       throw err;
     }
     await dispatch(setModelList(res));
-
   } catch (err) {
     console.log(err);
   }
@@ -105,23 +103,22 @@ const setExistingOfAnkiLanModel = existing => {
   };
 };
 export const checkAnkiLanModelForExisting = name => async dispatch => {
-  setTimeout( async () => {
-  try {
-    const [error, modelList] = await AnkiDroid.getModelList()
-    console.log('CECKCKC', name, modelList);
-    for (let model of modelList) {
-      if (model.name === name) {
-        await dispatch(setExistingOfAnkiLanModel(true));
-        return true;
+  setTimeout(async () => {
+    try {
+      const [error, modelList] = await AnkiDroid.getModelList();
+      for (let model of modelList) {
+        if (model.name === name) {
+          await dispatch(setExistingOfAnkiLanModel(true));
+          return true;
+        }
       }
+      const err = 'Model not found. Displaying message...';
+      throw err;
+    } catch (err) {
+      console.log(err);
+      await dispatch(setExistingOfAnkiLanModel(false));
     }
-    const err = 'Model not found. Displaying message...';
-    throw err;
-  } catch (err) {
-    console.log(err);
-    await dispatch(setExistingOfAnkiLanModel(false));
-  }
-  }, 2000)
+  }, 2000);
 };
 
 export const getModelId = (models, name) => {
