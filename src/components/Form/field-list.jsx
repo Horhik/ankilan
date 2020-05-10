@@ -18,7 +18,7 @@ import {
 import {sendField} from '../../actions/form-actions';
 import {addNote} from '../../actions/createAnkiLanModel';
 
-const FieldList = props => {
+const FieldList = (props) => {
   const [pronunciation, setPronunciation] = useState(
     props.response.pronunciation,
   );
@@ -46,10 +46,11 @@ const FieldList = props => {
     setSound(props.response.sound);
     setPronunciation(props.response.pronunciation);
     setExamples(props.response.examples);
+    console.log('DPEDDDDD', props.response.compounded);
   }, [props]);
   const [loadingState, setLoadingState] = useState(false);
   useEffect(() => {
-    console.log('STATE', examples, pronunciation, sound);
+    // console.log('STATE', examples, pronunciation, sound);
     if (examples && pronunciation && sound) {
       setLoadingState(true);
     } else {
@@ -64,15 +65,11 @@ const FieldList = props => {
     <ScrollView keyboardShouldPersistTaps={'handled'} style={{height: '100%'}}>
       {loadingState && props.loadingState ? (
         <View>
-          <PickerList labelNum={1} id={0} role={DEF_LIST1} />
+          <PickerList labelNum={1} id={props.pos1id} role={DEF_LIST1} />
           {/*<PickerList labelNum={2} id={1} role={DEF_LIST2} />*/}
-          <PickerList
-            labelNum={2}
-            id={props.response.compounded.length >= 2 ? 1 : 0}
-            role={DEF_LIST2}
-          />
+          <PickerList labelNum={2} id={props.pos2id} role={DEF_LIST2} />
           <FieldEditor
-            hasChanged={c =>
+            hasChanged={(c) =>
               props.sendField({
                 text: c,
                 role: EXAMPLES,
@@ -85,7 +82,7 @@ const FieldList = props => {
             }}
           />
           <FieldEditor
-            hasChanged={c =>
+            hasChanged={(c) =>
               props.sendField({
                 text: c,
                 role: SOUND,
@@ -95,7 +92,7 @@ const FieldList = props => {
             role={SOUND}
           />
           <FieldEditor
-            hasChanged={c =>
+            hasChanged={(c) =>
               props.sendField({
                 text: c,
                 role: PRONUNCIATION,
@@ -119,11 +116,13 @@ const FieldList = props => {
   );
 };
 export default connect(
-  state => ({
+  (state) => ({
     response: state.api.parsedDictionary,
     word: state.api.availableApi.word,
     loadingState: state.api.apiIsLoaded,
     fields: state.anki.currentFields,
+    pos1id: state.anki.pos1id,
+    pos2id: state.anki.pos2id,
   }),
   {
     sendField,

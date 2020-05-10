@@ -12,3 +12,8 @@ export const sendField = field => ({
   payload: field.text,
   role: field.role,
 });
+
+export const selectCertainFormValue = (
+  unicName = String,
+  value = String,
+) => ({});

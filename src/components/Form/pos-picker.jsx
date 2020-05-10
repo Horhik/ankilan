@@ -9,6 +9,7 @@ const PosPicker = props => {
   const [poses, setPoses] = useState([]);
   useEffect(() => {
     if (props.parts) {
+      console.log('PARTASSDFSD', props.defaultId)
       let posArray = props.parts.map((part, id) => part.pos);
       setPoses(posArray);
       setReady(true);
